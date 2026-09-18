@@ -45,6 +45,7 @@
     transition: 0.25s ease;
     transform-origin: left;
     position: relative;
+    max-width: 85%;
 }
 
 .linksHeader.usable:hover {
@@ -58,6 +59,8 @@
 .traditionalLinkHeader {
     background-color: rgba(var(--c2), 0.2);
     color: rgb(var(--c3));
+    overflow-wrap: break-word;
+    word-break: break-all;
 }
 
 .traditionalLinkHeader:hover {
