@@ -179,7 +179,7 @@ function classGen(){
             deleteButton.textContent = "Delete Class"
             buttonsTrack.appendChild(deleteButton)
             deleteButton.addEventListener('click', (event) => {
-                if(!confirm("Are you sure you want to delete this class?")) return
+                if(!confirm("Are you sure you want to delete this class? This will not remove the links associated with the period.")) return
                 let jsonRead = JSON.parse(localStorage.getItem('swcClasses'))
                 jsonRead[i] = {}
                 localStorage.setItem('swcClasses', JSON.stringify(jsonRead))

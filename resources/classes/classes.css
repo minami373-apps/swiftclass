@@ -35,7 +35,8 @@
     vertical-align: top;
     overflow: hidden;
     position: relative;
-    line-height: 1
+    line-height: 1;
+    container-type: inline-size;
 }
 
 .classPane.addClass {
@@ -55,7 +56,7 @@
 
 .classPlusSign {
     color: rgb(var(--c1));
-    font-size: 5cqi;
+    font-size: 30cqi;
     height: fit-content;
     margin-right: 6%;
 }
@@ -69,7 +70,7 @@
 }
 
 .classHeader {
-    font-size: clamp(4px, 1.3cqi, 33px);
+    font-size: clamp(4px, 7cqi, 33px);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -81,7 +82,7 @@
 }
 
 .classSubHeader {
-    font-size: clamp(2px, 0.9cqi, 34px);
+    font-size: clamp(2px, 5.2cqi, 34px);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -123,12 +124,12 @@ h2 {
 }
 
 .trackButton {
-    width: 29%;
+    width: 33%;
     height: 80%;
     background-color: rgba(0, 0, 0, 0.2);
     color: #FFFFFF;
     border-radius: 5px;
-    font-size: clamp(3px, 1cqi, 15px);
+    font-size: clamp(3px, 1.5vmin, 15px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -136,6 +137,8 @@ h2 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    container-type: inline-size;
+    padding: 0.5%;
 }
 
 .trackButton:hover {

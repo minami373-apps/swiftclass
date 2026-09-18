@@ -6,21 +6,25 @@ function linksGen() {
 
     if(localStorage.getItem('swcLinks') == null){
         localStorage.setItem('swcLinks', JSON.stringify([
-            [],
+            [
+                [1, []],
+                [2, []],
+                [3, []],
+                [4, []],
+                [5, []],
+                [6, []],
+                [7, []],
+                [8, []],
+                [9, []],
+                [10, []],
+                [11, []],
+                [12, []]
+            ],
             []
         ]))
     }
 
     linksJSON = JSON.parse(localStorage.getItem('swcLinks'))
-
-    for(i=0; i < Number(extractSetting("Number of Available Periods"));i++){
-        if(linksJSON[0][i*2] == undefined){
-            linksJSON[0].push([
-                i+1,
-                []
-            ])
-        }
-    }
 
     localStorage.setItem('swcLinks', JSON.stringify(linksJSON))
 
@@ -135,17 +139,17 @@ function linksGen() {
                     editButton.addEventListener('click', (event) => {
                         event.stopPropagation()
                         let newLink = getResultsFromContextMenu(["name", "link"], "Edit Link", [link.name, link.link])
-                        newLink.then((newLink) => {
-                            let jsonRead = JSON.parse(localStorage.getItem('swcLinks'))
-                            jsonRead[0][window.linkPeriod][0].forEach((element, index) => {
-                                if(element.name == link.name){
-                                    jsonRead[0][window.linkPeriod][0][index].name = newLink[0]
-                                    jsonRead[0][window.linkPeriod][0][index].link = newLink[1]
-                                    localStorage.setItem('swcLinks', JSON.stringify(jsonRead))
-                                }
-                                updateMenus()
+                            newLink.then((newLink) => {
+                                let jsonRead = JSON.parse(localStorage.getItem('swcLinks'))
+                                jsonRead[0][window.linkPeriod][0].forEach((element, index) => {
+                                    if (element.name == link.name) {
+                                        jsonRead[0][window.linkPeriod][0][index].name = newLink[0]
+                                        jsonRead[0][window.linkPeriod][0][index].link = newLink[1]
+                                        localStorage.setItem('swcLinks', JSON.stringify(jsonRead))
+                                    }
+                                    updateMenus()
+                                })
                             })
-                        })
                     })
                     linksTab.appendChild(linkClickable)
                 })
