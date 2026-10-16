@@ -1,4 +1,5 @@
 function classGen(){
+    try{
     // baseContent.classList.add('classesGrid')
 
     let sub1 = document.createElement('div')
@@ -195,4 +196,7 @@ function classGen(){
             }
         }
     }
+}catch(e){
+    alert(e.stack)
+}
 }

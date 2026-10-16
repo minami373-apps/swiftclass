@@ -20,7 +20,7 @@ async function homeGen(){
 
            if (newsJSON.image) {
                let newsImage = document.createElement('img')
-               newsImage.src = 'resources/news/display.png'
+               newsImage.src = 'https://picsum.photos/640/360?random=1'
                newsImage.classList.add('newsImage')
                newsImage.id = 'newsImage'
                let line = document.createElement('div')
