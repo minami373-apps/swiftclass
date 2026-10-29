@@ -85,7 +85,7 @@
 .slidesButton:hover {
     transform: scale(1.1);
     background-color: rgb(var(--c2));
-    color: rgb(var(--c3));
+    color: rgb(var(--c1));
 }
 
 .slidesButton:active {
@@ -107,8 +107,8 @@
     bottom: 0;
     left: 0;
     margin: 1%;
-    background-color: rgba(var(--c1), 0.96);
-    border: 2px solid rgba(var(--c1), 0.96);
+    background-color: rgba(var(--c1));
+    border: 2px solid rgba(var(--c1));
     color: rgb(var(--c3));
     border-radius: 4px;
     padding: 0.5em;
