@@ -67,12 +67,21 @@ quickWrap().then(() => {
         console.warn(e)
     }
 
-    let backgroundImageURL = extractSetting('Background Image')
-    if(backgroundImageURL != ""){
-        document.getElementById('content').style.backgroundImage = "url('" + backgroundImageURL + "')"
-    }else{
-        document.getElementById('content').style.backgroundImage = 'url("./resources/defaultbg.png")'
-    }
+    let backgroundImageURL = extractSetting('Background Image/Color')
+        if(backgroundImageURL.charAt(0) == "#"){
+            document.body.style.backgroundImage = 'none'
+            document.body.style.backgroundColor = backgroundImageURL
+        }
+        else
+        {
+            if(backgroundImageURL !== ""){
+                document.body.style.backgroundImage = 'url("' + backgroundImageURL + '")'
+            }
+            else
+            {
+                document.body.style.backgroundImage = 'url("./Resources/defaultbg.png")'
+            }
+        }
 })
 
 console.log(localStorage.getItem('swcsettings'))

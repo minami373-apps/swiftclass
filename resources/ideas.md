@@ -5,3 +5,5 @@
 - Fun idea: *Warnings and Risk Levels*: Based on the number of close to due or LATE assignments, the level of warning increases in SwC. 1-3. The UI could change to highlight your agenda because STUFF IS LATE.
 
 - *Responsive Grade Tracking*: Based on your target grade values and possibly weighting systems, assignments in your agenda can gain priority. (if you have a 70 in a class and an assignment is due, it would gain max priority)
+
+- *SwiftClass Resources*: An optional tab that can be shown or not shown in settings. It would have resources that are commonly used in classes, like the periodic table and other things.

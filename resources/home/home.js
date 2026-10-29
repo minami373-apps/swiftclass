@@ -15,12 +15,12 @@ async function homeGen(){
            }
 
            if ('title' in newsJSON) {
-               document.getElementById('newsHeader').textContent = newsJSON.title
+               document.getElementById('newsHeader').innerHTML = newsJSON.title
            }
 
            if (newsJSON.image) {
                let newsImage = document.createElement('img')
-               newsImage.src = 'https://picsum.photos/640/360?random=1'
+               newsImage.src = './Resources/news/12-1.jpg'
                newsImage.classList.add('newsImage')
                newsImage.id = 'newsImage'
                let line = document.createElement('div')

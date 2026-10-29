@@ -14,7 +14,7 @@ class Setting {
 
         // verifying types FIRST
 
-        if (!['bool', 'dropdown', 'color', 'slider', 'text'].includes(this.type)) {
+        if (!['bool', 'dropdown', 'color', 'slider', 'text', 'background'].includes(this.type)) {
             throw new Error("Invalid type: " + this.type)
         }
 
@@ -261,6 +261,172 @@ class Setting {
                 b.appendChild(i)
                 b.appendChild(document.createElement('br'))
                 b.appendChild(d)
+                document.getElementById('baseContent').appendChild(b)
+            }
+            else if(this.type == "background"){
+                console.log('new type after 500 years')
+                let b = document.createElement('div')
+                b.classList.add('boolInteract')
+                b.id = this.name
+                let t = document.createElement('span')
+                t.classList.add('boolHeader')
+                t.textContent = this.name
+                b.appendChild(t)
+                b.appendChild(document.createElement('br'))
+
+                let selector = document.createElement('div')
+                b.appendChild(selector)
+                if(extractSetting('Background Image/Color').charAt(0) == "#")
+                {
+                    selector.dataset.typeNow = 'col'
+                }
+                else
+                {
+                    selector.dataset.typeNow = "img"
+                }
+                selector.classList.add('selectorButton')
+
+                if(selector.dataset.typeNow == 'img'){
+                    selector.textContent = 'Use color for BG'
+                    
+                    // This should be a text input bucko
+
+                    let i = document.createElement('input')
+                    i.type = 'text'
+                    i.value = extractSetting('Background Image/Color')
+                    i.id = 'backgroundImageInput'
+
+                    i.classList.add('textInput')
+                    b.appendChild(i)
+
+                    i.addEventListener('input', (event) => {
+                        let reloadButton = document.querySelector('.reloadButton')
+                        if(!reloadButton.classList.contains('reloadPulse')){
+                            reloadButton.classList.add('reloadPulse')
+                        }
+
+                        let settingsLoad = localStorage.getItem('swcsettings')
+                        settingsLoad = JSON.parse(settingsLoad)
+                        settingsLoad[settingsLoad.indexOf('Background Image/Color') + 1] = event.currentTarget.value
+                        localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+                    })
+                }
+                else{
+                    selector.textContent = 'Use  image for BG'
+
+                    // This should be a color input bucko
+
+                    let i = document.createElement('input')
+                    i.type = 'color'
+                    i.value = extractSetting('Background Image/Color')
+                    i.id = 'backgroundColorInput'
+
+                    i.classList.add('colorInput')
+                    b.appendChild(i)
+
+                    i.addEventListener('input', (event) => {
+                        let reloadButton = document.querySelector('.reloadButton')
+                        if(!reloadButton.classList.contains('reloadPulse')){
+                            reloadButton.classList.add('reloadPulse')
+                        }
+
+                        let settingsLoad = localStorage.getItem('swcsettings')
+                        settingsLoad = JSON.parse(settingsLoad)
+                        settingsLoad[settingsLoad.indexOf('Background Image/Color') + 1] = event.currentTarget.value
+                        localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+                    })
+                }
+
+                selector.addEventListener('click', (event) => {
+                    if(event.currentTarget.dataset.typeNow == 'img'){
+                        event.currentTarget.dataset.typeNow = 'col'
+                        selector.textContent = 'Use image for BG'
+
+                        document.getElementById('backgroundImageInput').remove()
+                        document.getElementById('backgroundDescription').remove()
+                        document.getElementById('annoyingBreak').remove()
+
+                        let i = document.createElement('input')
+                        i.type = 'color'
+                        i.value = extractSetting('Background Image/Color')
+                        i.id = 'backgroundColorInput'
+
+                        i.classList.add('colorInput')
+                        b.appendChild(i)
+
+                        let painfulBreak = document.createElement('br')
+                        painfulBreak.id = 'annoyingBreak'
+                        b.appendChild(painfulBreak) 
+
+                        i.addEventListener('input', (event) => {
+                            let reloadButton = document.querySelector('.reloadButton')
+                            if(!reloadButton.classList.contains('reloadPulse')){
+                                reloadButton.classList.add('reloadPulse')
+                            }
+
+                            let settingsLoad = localStorage.getItem('swcsettings')
+                            settingsLoad = JSON.parse(settingsLoad)
+                            settingsLoad[settingsLoad.indexOf('Background Image/Color') + 1] = event.currentTarget.value
+                            localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+                            
+                    })
+
+                        let d = document.createElement('span')
+                         d.id = 'backgroundDescription'
+                         d.textContent = this.description
+
+                         b.appendChild(d)
+                    }
+                    else{
+                        event.currentTarget.dataset.typeNow = 'img'
+                        selector.textContent = 'Use color for BG'
+
+                        document.getElementById('backgroundColorInput').remove()
+                        document.getElementById('backgroundDescription').remove()
+                        document.getElementById('annoyingBreak').remove()
+
+                        let i = document.createElement('input')
+                        i.type = 'text'
+                        i.value = extractSetting('Background Image/Color')
+                        i.id = 'backgroundImageInput'
+
+                        i.classList.add('textInput')
+                        b.appendChild(i)
+
+                        let painfulBreak = document.createElement('br')
+                        painfulBreak.id = 'annoyingBreak'
+                        b.appendChild(painfulBreak)
+
+                        i.addEventListener('input', (event) => {
+                            let reloadButton = document.querySelector('.reloadButton')
+                            if(!reloadButton.classList.contains('reloadPulse')){
+                                reloadButton.classList.add('reloadPulse')
+                            }
+
+                            let settingsLoad = localStorage.getItem('swcsettings')
+                            settingsLoad = JSON.parse(settingsLoad)
+                            settingsLoad[settingsLoad.indexOf('Background Image/Color') + 1] = event.currentTarget.value
+                            localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+                        })
+
+                         let d = document.createElement('span')
+                         d.id = 'backgroundDescription'
+                         d.textContent = this.description
+
+                         b.appendChild(d)
+                    }
+                })
+
+                let d = document.createElement('span')
+                d.id = 'backgroundDescription'
+                d.textContent = this.description
+
+                let painfulBreak = document.createElement('br')
+                painfulBreak.id = 'annoyingBreak'
+                b.appendChild(painfulBreak)
+
+                b.appendChild(d)
+
                 document.getElementById('baseContent').appendChild(b)
             }
 
