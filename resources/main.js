@@ -79,7 +79,7 @@ quickWrap().then(() => {
             }
             else
             {
-                document.body.style.backgroundImage = 'url("./Resources/defaultbg.png")'
+                document.body.style.backgroundImage = 'url("./resources/defaultbg.png")'
             }
         }
 })
