@@ -20,7 +20,7 @@ async function homeGen(){
 
            if (newsJSON.image) {
                let newsImage = document.createElement('img')
-               newsImage.src = './resources/news/12-1.jpg'
+               newsImage.src = './resources/news/new.png'
                newsImage.classList.add('newsImage')
                newsImage.id = 'newsImage'
                let line = document.createElement('div')

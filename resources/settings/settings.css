@@ -140,7 +140,7 @@
     background-color: rgb(var(--c3));
     color: rgb(var(--c1));
     font-weight: 500;
-    border: 2px solid rgb(var(--c3));
+    /* border: 2px solid rgb(var(--c3)); */
     width: fit-content;
     height: fit-content;
     padding: 1%;
@@ -184,7 +184,7 @@
      background-color: rgb(var(--c3));
     color: rgb(var(--c1));
     font-weight: 500;
-    border: 2px solid rgb(var(--c3));
+    /* border: 2px solid rgb(var(--c3)); */
     width: fit-content;
     height: fit-content;
     padding: 1%;

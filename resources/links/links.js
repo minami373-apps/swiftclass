@@ -1,4 +1,4 @@
-function linksGen() {
+function linksGen(...args) {
 
     let linksJSON = JSON.parse(localStorage.getItem('swcLinks'))
     let classHeaders = JSON.parse(localStorage.getItem('swcClasses'))
@@ -78,6 +78,7 @@ function linksGen() {
 
         let e = document.createElement('div')
         e.classList.add('linksHeader')
+        e.classList.add('linksClassHeader')
 
         if (element.color == undefined) {
             e.style.backgroundColor = '#FFFFFFAA'
@@ -96,6 +97,7 @@ function linksGen() {
             e.classList.add('usable')
             e.addEventListener('click', (event) => {
                 document.getElementById('sectionBigHeader').textContent = 'Links used in ' + element.name + ":"
+                window.linksOpen = element.name
 
                 window.sectionType = 'class'
                 window.linkPeriod = Number(event.currentTarget.dataset.period)
@@ -109,6 +111,13 @@ function linksGen() {
                 }
 
                 linksTab.appendChild(document.createElement('br'))
+
+                if(classLinks[0].length == 0){
+                    let noLinksText = document.createElement('span')
+                    noLinksText.textContent = "This section has no links. Use the button below to add one."
+                    noLinksText.classList.add('noLinksText')
+                    linksTab.appendChild(noLinksText)
+                }
 
                 classLinks[0].forEach((link) => {
                     let linkClickable = document.createElement('div')
@@ -127,10 +136,6 @@ function linksGen() {
                     removalButton.innerHTML = '<i class="fa-solid fa-x contextMenuOpen"></i>'
                     controlTrack.appendChild(removalButton)
 
-                    removalButton.addEventListener('click', (event) => {
-
-                    })
-
                     let editButton = document.createElement('div')
                     editButton.classList.add('removalButton')
                     editButton.innerHTML = '<i class="fa-solid fa-pencil contextMenuOpen"></i>'
@@ -141,20 +146,61 @@ function linksGen() {
                         let newLink = getResultsFromContextMenu(["name", "link"], "Edit Link", [link.name, link.link])
                             newLink.then((newLink) => {
                                 let jsonRead = JSON.parse(localStorage.getItem('swcLinks'))
-                                jsonRead[0][window.linkPeriod][0].forEach((element, index) => {
+                                jsonRead[0][window.linkPeriod][1].forEach((element, index) => {
                                     if (element.name == link.name) {
-                                        jsonRead[0][window.linkPeriod][0][index].name = newLink[0]
-                                        jsonRead[0][window.linkPeriod][0][index].link = newLink[1]
+                                        jsonRead[0][window.linkPeriod][1][index].name = newLink[0]
+                                        jsonRead[0][window.linkPeriod][1][index].link = newLink[1]
                                         localStorage.setItem('swcLinks', JSON.stringify(jsonRead))
                                     }
-                                    updateMenus()
+                                    updateMenus({"relatedMenu": "Links", "header": window.linksOpen})
                                 })
                             })
                     })
+
+                    removalButton.addEventListener('click', (event) => {
+                        event.stopPropagation()
+                        if(!confirm("Are you sure you want to remove this link?")) return
+                        let jsonRead = JSON.parse(localStorage.getItem('swcLinks'))
+                        jsonRead[0][window.linkPeriod][1].forEach((element, index) => {
+                            if (element.name == link.name) {
+                                jsonRead[0][window.linkPeriod][1].splice(index, 1)
+                                localStorage.setItem('swcLinks', JSON.stringify(jsonRead))
+                            }
+                            updateMenus({"relatedMenu": "Links", "header": window.linksOpen})
+                        })
+                    })
                     linksTab.appendChild(linkClickable)
                 })
+
+                let addLinkButton = document.createElement('div')
+                addLinkButton.classList.add('addLinkButton')
+                addLinkButton.classList.add('contextMenuOpen')
+
+                addLinkButton.textContent = "Add Link"
+                linksTab.appendChild(addLinkButton)
+
+                addLinkButton.addEventListener('click', (event) => {
+
+                    let newLink = getResultsFromContextMenu(["name", "link"], "Add Link", [])
+
+                    newLink.then((newLink) => {
+
+                        let jsonRead = JSON.parse(localStorage.getItem('swcLinks'))
+
+                        jsonRead[0][window.linkPeriod][1].push(
+                            {
+                                "name": newLink[0],
+                                "link": newLink[1]
+                            }
+                        )
+
+                        localStorage.setItem("swcLinks", JSON.stringify(jsonRead))
+                        updateMenus({"relatedMenu": "Links", "header": window.linksOpen})
+                    })
+
+                })
             })
-        }
+        }   
 
         headersTab.appendChild(e)
     }
@@ -179,12 +225,127 @@ function linksGen() {
         let e = document.createElement('div')
         e.classList.add('linksHeader')
         e.classList.add('traditionalLinkHeader')
+        e.classList.add('otherSectionHeader')
         e.textContent = header
         headersTab.appendChild(e)
 
-        e.addEventListener('click', () => {
-            // do stuff once link loader is online
-            console.log('header clicked')
+        e.addEventListener('click', (event) => {
+            window.sectionBigHeader.textContent = "Links used in " + e.textContent + ":"
+            let targetHeader = event.currentTarget.textContent
+
+            while(linksTab.firstChild !==  linksTab.lastChild){
+                    linksTab.removeChild(linksTab.lastChild)
+            }
+
+            linksTab.appendChild(document.createElement('br'))
+
+            if(links.length == 0){
+                let noLinksText = document.createElement('span')
+                noLinksText.textContent = "This section has no links. Use the button below to add one."
+                noLinksText.classList.add('noLinksText')
+                linksTab.appendChild(noLinksText)
+            }
+
+            links.forEach((link) => {
+                let linkClickable = document.createElement('div')
+                linkClickable.classList.add('linkClickable')
+                linkClickable.textContent = link.name
+                linkClickable.addEventListener('click', (event) => {
+                    window.open(link.link)
+                })
+
+                linksTab.appendChild(linkClickable)
+
+                let controlTrack = document.createElement('div')
+                controlTrack.classList.add('controlTrack')
+                linkClickable.appendChild(controlTrack)
+
+                let removalButton = document.createElement('div')
+                removalButton.classList.add('removalButton')
+                removalButton.classList.add('contextMenuOpen')
+                removalButton.innerHTML = '<i class="fa-solid fa-x"></i>'
+                controlTrack.appendChild(removalButton)
+                removalButton.addEventListener('click', (event) => {
+                    event.stopPropagation()
+                    if(!confirm("Are you sure you want to remove this link?")) return
+                    let jsonRead = JSON.parse(localStorage.getItem('swcLinks'))
+                    jsonRead[1].forEach((element, index) => {
+                        if(element[0] == targetHeader){
+                            element[1].forEach((linkElement, linkIndex) => {
+                                if(linkElement.name == link.name){
+                                    jsonRead[1][index][1].splice(linkIndex, 1)
+                                    localStorage.setItem('swcLinks', JSON.stringify(jsonRead))
+                                }
+                            })
+                        }
+                    })
+                    updateMenus({relatedMenu: "Links", header: targetHeader, mode: "customHeader"})
+                }
+                )
+
+                let editButton = document.createElement('div')
+                editButton.classList.add('removalButton')
+                editButton.classList.add('contextMenuOpen')
+                editButton.innerHTML = '<i class="fa-solid fa-pencil contextMenuOpen"></i>'
+                controlTrack.appendChild(editButton)
+
+                editButton.addEventListener('click', (event) => {
+                    event.stopPropagation()
+                    let newLink = getResultsFromContextMenu(["name", "link"], "Edit Link", [link.name, link.link])
+
+                    newLink.then((newLink) => {
+                        let jsonRead = JSON.parse(localStorage.getItem('swcLinks'))
+
+                        jsonRead[1].forEach((element, index) => {
+                            if(element[0] == targetHeader){
+                                element[1].forEach((linkElement, linkIndex) => {
+                                    if(linkElement.name == link.name){
+                                        jsonRead[1][index][1][linkIndex].name = newLink[0]
+                                        jsonRead[1][index][1][linkIndex].link = newLink[1]
+                                        localStorage.setItem('swcLinks', JSON.stringify(jsonRead))
+                                    }
+                                })
+                            }
+                        })
+                        updateMenus({relatedMenu: "Links", header: targetHeader, mode: "customHeader"})
+                    }
+                    )
+                })
+            })
+
+            let addLinkButton = document.createElement('div')
+                addLinkButton.classList.add('addLinkButton')
+                addLinkButton.classList.add('contextMenuOpen')
+
+                addLinkButton.textContent = "Add Link"
+                linksTab.appendChild(addLinkButton)
+
+                addLinkButton.addEventListener('click', (event) => {
+
+                    let newLink = getResultsFromContextMenu(["name", "link"], "Add Link", [])
+
+                    newLink.then((newLink) => {
+
+                        let jsonRead = JSON.parse(localStorage.getItem('swcLinks'))
+
+                        jsonRead[1].forEach((element, index) => {
+                            if(element[0] == targetHeader)
+                            {
+                                jsonRead[1][index][1].push(
+                                    {
+                                        "name": newLink[0],
+                                        "link": newLink[1]
+                                    }
+                                )
+                            }
+                        })
+
+                        console.log(jsonRead)
+                        localStorage.setItem("swcLinks", JSON.stringify(jsonRead))
+                        updateMenus({relatedMenu: "Links", header: targetHeader, mode: "customHeader"})
+                    })
+
+                })            
         })
 
         let controlTrack = document.createElement('div')
@@ -224,7 +385,7 @@ function linksGen() {
                         localStorage.setItem('swcLinks', JSON.stringify(jsonRead))
                     }
                 })
-                updateMenus()
+                updateMenus({relatedMenu: "Links", header: newHeader[0], mode: "customHeader"})
             })
         })
     })
@@ -238,10 +399,39 @@ function linksGen() {
         let newHeader = getResultsFromContextMenu(["name"], "Add Section", [])
 
         newHeader.then((newHeader) => {
+            let otherFound = false
             let jsonRead = JSON.parse(localStorage.getItem('swcLinks'))
+            
+            jsonRead[1].forEach((element, index) => {
+                if(element[0] == newHeader[0]) otherFound = true
+            })
+        
+            if(otherFound === true){
+                alert('There is already a section with this name!')
+                return
+            }
+
             jsonRead[1].push([newHeader[0], []])
             localStorage.setItem('swcLinks', JSON.stringify(jsonRead))
-            updateMenus()
+            updateMenus({relatedMenu: "Links", header: newHeader[0], mode: "customHeader"})
         })
     })
+
+    console.log('args 0: ', args[0])
+
+    if(args[0] !== undefined && args[0].mode == undefined){
+        document.querySelectorAll('.linksClassHeader').forEach((element) => {
+            if(element.textContent == args[0].header){
+                element.click()
+            }
+        })
+    }
+
+    if(args[0] !== undefined && args[0].mode == "customHeader"){
+        document.querySelectorAll('.otherSectionHeader').forEach((element) => {
+            if(element.textContent == args[0].header){
+                element.click()
+            }
+        })
+    }
 }

@@ -233,6 +233,11 @@ aspectRatioBlocker.appendChild(blockerText)
 
 async function updateMenus(...args) {
 
+    if(args[0] !== undefined)
+    {
+        console.log(args[0])
+    }
+
     window.classPeriods = extractSetting('Number of Available Periods')
 
     for(let i = 0; i < window.classPeriods; i++){
@@ -324,6 +329,13 @@ async function updateMenus(...args) {
            window.currentMenu = 'Links'
            linksGen()
            typeMenuName(true)
+       }
+       console.warn(args[0])
+       if(typeof args[0] == 'object'){
+            if(args[0].relatedMenu == 'Links'){
+                window.currentMenu = 'Links'
+                linksGen(args[0])
+            }
        }
     }
 

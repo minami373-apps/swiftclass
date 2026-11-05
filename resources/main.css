@@ -300,10 +300,9 @@ div {
     cursor: not-allowed !important;
 }
 
-.textOverride {
-    color: white !important;
-    mix-blend-mode: difference !important;
-}
+/* .textOverride {
+ 
+} */
 
 .aspectRatioBlocker {
     position: absolute;

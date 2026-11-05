@@ -2,11 +2,16 @@ function convertHexValueToDecimal(hexValue) {
     return parseInt(hexValue, 16)
 }
 
-function hexCodeToRGB(hexCode) {
+function hexCodeToRGB(...args) {
+    let hexCode = args[0]
     let r = convertHexValueToDecimal(hexCode.substring(1, 3))
     let g = convertHexValueToDecimal(hexCode.substring(3, 5))
     let b = convertHexValueToDecimal(hexCode.substring(5, 7))
-    return `${r}, ${g}, ${b}`
+    if(args.length == 1) return `${r}, ${g}, ${b}`
+    else
+    {
+        return [r, g, b]
+    }
 }
 
 async function checkAspectRatio(){
@@ -200,8 +205,36 @@ function resetTheme(){
 
     settingsLoad.splice([settingsLoad.indexOf("Somewhat Bright Elements")], 2)
 
-    settingsLoad.splice([settingsLoad.indexOf("Background Image")], 2)
+    settingsLoad.splice([settingsLoad.indexOf("Background Image / Color")], 2)
 
     localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
     location.reload()
 }
+
+setInterval(() => {
+    let settingsLoad = localStorage.getItem('swcsettings')
+    settingsLoad = JSON.parse(settingsLoad)
+
+    let darkElements = settingsLoad[settingsLoad.indexOf("Dark Elements") + 1]
+    darkElements = hexCodeToRGB(darkElements, 1)
+
+    let textColor = []
+
+    darkElements.forEach((element, index) => {
+        element = 255 - element
+        textColor[index] = element
+    })
+
+    let avg = 0
+
+    textColor.forEach((element, index) => {
+        avg += element
+    })
+
+    avg = avg / 3
+
+    document.getElementsByClassName('mainTextOverride')[0].style.color = `rgb(${avg}, ${avg}, ${avg})`
+
+    // console.log(darkElements)
+}, 1
+)

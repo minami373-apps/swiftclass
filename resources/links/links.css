@@ -17,7 +17,7 @@
 .classSectorHeader {
     width: 100%;
     padding: 1%;
-    font-size: clamp(2px, 1.6cqi, 33px);
+    font-size: clamp(2px, 1.3cqi, 33px);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -79,17 +79,24 @@
     border-radius: 5px;
     display: inline-block;
     padding: 0.5%;
-    font-size: clamp(12px, 2vmin, 32px);
+    font-size: clamp(12px, 1.6vmin, 32px);
     width: 0.4vmin;
     height: 0.4vmin;
     min-width: fit-content;
     min-height: fit-content;
     margin-left: 3%;
     cursor: pointer;
+    transition: 0.25s ease;
 }
 
 .removalButton:hover {
     background-color: rgba(var(--c2), 0.6);
+    scale: 1.03;
+}
+
+.removalButton:active {
+    background-color: rgba(var(--c2), 0.8);
+    scale: 0.95;
 }
 
 .addHeaderButton {
@@ -139,6 +146,17 @@
     margin: 0.2%;
     border-radius: 5px;
     padding: 0.2%;
+    transition: 0.25s ease;
+}
+
+.linkClickable:hover {
+    background-color: rgba(var(--c2), 0.4);
+    scale: 1.05;
+}
+
+.linkClickable:active {
+    background-color: rgba(var(--c2), 0.6);
+    scale: 0.95;
 }
 
 .controlTrack {
@@ -146,4 +164,37 @@
     justify-content: flex-end;
     align-items: center;
     padding: 1%;
+}
+
+.addLinkButton {
+    background-color: rgba(var(--c2), 0.2);
+    color: rgb(var(--c3));
+    border-radius: 5px;
+    display: block;
+    padding: 0.5%;
+    font-size: clamp(12px, 2vmin, 32px);
+    width: fit-content;
+    min-width: fit-content;
+    min-height: fit-content;
+    cursor: pointer;
+    transition: 0.25s ease;
+    transform-origin: left;
+}
+
+.addLinkButton:hover {
+    background-color: rgba(var(--c2), 0.4);
+    scale: 1.05;
+
+}
+
+.addLinkButton:active {
+    background-color: rgba(var(--c2), 0.6);
+    filter: brightness(1.4);
+    scale: 0.95;
+}
+
+.noLinksText {
+    font-size: clamp(12px, 2.3vmin, 32px);
+    color: rgba(var(--c3), 0.8);
+    margin-left: 0.5%;
 }
