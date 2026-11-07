@@ -14,7 +14,7 @@ class Setting {
 
         // verifying types FIRST
 
-        if (!['bool', 'dropdown', 'color', 'slider', 'text', 'background'].includes(this.type)) {
+        if (!['bool', 'dropdown', 'color', 'slider', 'text', 'background', '!ignore'].includes(this.type)) {
             throw new Error("Invalid type: " + this.type)
         }
 
@@ -429,11 +429,14 @@ class Setting {
 
                 document.getElementById('baseContent').appendChild(b)
             }
+            else if(this.type == "!ignore")
+            {
+                console.warn('Ignoring setting, likely to pregenerate header ' + this.header)
+            }
 
         } catch (e) {
             console.warn(e)
         }
-
     }
 }
 
@@ -532,18 +535,24 @@ async function settingsGen(){
                 settingsLoad = JSON.parse(settingsLoad)
                 // console.log('Loaded settings: ')
                 // console.log(settingsLoad)
+                if(header.textContent != "Import/Export") {
+                    settingsJSON.forEach(async (element) => {
+                        if (!settingsLoad.includes(element.name)) {
+                            settingsLoad.push(element.name)
+                            settingsLoad.push(element.value)
+                            localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
+                        }
+                        if (element.header == window.settingHeaderType) {
+                            let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, element.minval, element.maxval, element.selectors)
+                            setting.render()
+                        }
+                    })
+                }
+                else
+                {
+                    generateImportExport()
+                }
 
-                settingsJSON.forEach(async (element) => {
-                    if (!settingsLoad.includes(element.name)) {
-                        settingsLoad.push(element.name)
-                        settingsLoad.push(element.value)
-                        localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
-                    }
-                    if (element.header == window.settingHeaderType) {
-                        let setting = new Setting(element.name, settingsLoad[settingsLoad.indexOf(element.name) + 1], element.type, element.description, element.header, element.types, element.minval, element.maxval, element.selectors)
-                        setting.render()
-                    }
-                })
                 let reloadButton = document.createElement('div')
                 reloadButton.classList.add('reloadButton')
                 reloadButton.textContent = 'Reload the Page'
@@ -564,4 +573,176 @@ async function settingsGen(){
     document.getElementById('baseContent').appendChild(reloadButton)
     document.getElementById('baseContent').style.overflowY = 'auto'
 
+}
+
+async function generateImportExport() {
+
+    // import first
+
+    let b = document.createElement('div')
+    b.classList.add('boolInteract')
+    b.classList.add('importExportInteract')
+
+    let i = document.createElement('span')
+    i.classList.add('boolHeader')
+    i.classList.add('importExportHeader')
+    i.textContent = 'Import SwiftClass Instance from a SwiftClass file'
+
+    let fileDialog = document.createElement('input')
+    fileDialog.classList.add('importExportFile')
+    fileDialog.type = 'file'
+    fileDialog.accept = '.swc'
+
+    fileDialog.addEventListener('change', async (event) => {
+        if(fileDialog.files.length > 0){
+            const data = fileDialog.files[0]
+
+            data.text().then((data) => {
+                try{
+                    parse = JSON.parse(data)
+
+                    window.activelyOpenSWC = parse
+
+                    if(parse[0] !== "SwiftClass Instance File"){
+                        throw new TypeError("Improper Structure")
+                    }
+                    else
+                    {
+                        if(document.getElementById('importButton') != null) document.getElementById('importButton').remove()
+
+                        let importButton = document.createElement('div')
+                        importButton.classList.add('exportButton')
+                        importButton.classList.add('contextMenuOpen')
+                        importButton.id = 'importButton'
+                        importButton.textContent = 'Import SwiftClass'
+
+                        importButton.addEventListener('click', () => {
+                            getResultsFromContextMenu(['selectors'], "Choose what to import! You may want to export your instance to back it up.", [Object.keys(parse[1])], "This will overwrite whatever data is currently saved. Are you REALLY sure you want to do this? You might want to export your current save for safekeeping.").then((result) => {
+                                    result[0].forEach((element, index) => {
+                                        if(element){
+                                            console.log('will import: ' + Object.keys(parse[1])[index])
+
+                                            if(Object.keys(parse[1])[index] == "Settings")
+                                            {
+                                                localStorage.setItem('swcsettings', JSON.stringify(parse[1].Settings))
+                                            }
+
+                                            if(Object.keys(parse[1])[index] == "Classes")
+                                            {
+                                                localStorage.setItem('swcClasses', JSON.stringify(parse[1].Classes))
+                                            }
+
+                                            if(Object.keys(parse[1])[index] == "Links")
+                                            {
+                                                localStorage.setItem('swcLinks', JSON.stringify(parse[1].Links))
+                                            }
+
+                                            if(Object.keys(parse[1])[index] == "CommonLinks")
+                                            {
+                                                localStorage.setItem('swcCommonLinks', JSON.stringify(parse[1].CommonLinks))
+                                            }
+
+                                            if(Object.keys(parse[1])[index] == "Agendas")
+                                            {
+                                                localStorage.setItem('swcAgendas', JSON.stringify(parse[1].Agendas))
+                                            }
+
+                                        }
+                                    })
+                                })
+                        })
+
+                        b.appendChild(importButton)
+                    }
+                }
+                catch(error) {
+                    alert("This file is not structured correctly, and SwiftClass cannot decode it. Please try again with a different file.")
+                }
+            })
+        }
+    })
+
+    let d = document.createElement('span')
+    d.classList.add('importExportDesc')
+    d.textContent = "Use the open file button to import in a \".swc\" file. You may then select what parts of SwiftClass to import. (eg: Links, Class, Agendas, etc.) This overwrites existing data."
+
+    b.appendChild(i)
+
+    let lineBreak = document.createElement('div')
+    lineBreak.classList.add('lineBreak')
+
+    b.appendChild(lineBreak)
+    b.appendChild(fileDialog)
+    b.appendChild(document.createElement('br'))
+    b.appendChild(d)
+
+    baseContent.appendChild(b)
+
+    //export
+
+    let b2 = document.createElement('div')
+    b2.classList.add('boolInteract')
+    b2.classList.add('importExportInteract')
+
+    let i2 = document.createElement('span')
+    i2.classList.add('boolHeader')
+    i2.classList.add('importExportHeader')
+    i2.textContent = 'Export your SwiftClass Instance to a SwiftClass file'
+
+    let d2 = document.createElement('span')
+    d2.className = 'importExportDesc'
+    d2.textContent = "Export your current SwiftClass Instance to a SwiftClass file. This will export everything saved. You can decide what parts of SwiftClass to import."
+
+    b2.appendChild(i2)
+
+    let lineBreak2 = document.createElement('div')
+    lineBreak2.classList.add('lineBreak')
+    b2.appendChild(lineBreak2)
+
+    let exportButton = document.createElement('div')
+    exportButton.classList.add('exportButton')
+    exportButton.textContent = 'Export SwiftClass'
+    b2.appendChild(exportButton)
+
+    exportButton.addEventListener('click', () => {
+        if(!confirm("This will download a file to your device. Are you sure you'd like to export your instance?")) return
+
+        let settings = JSON.parse(localStorage.getItem('swcsettings'))
+        let classes = JSON.parse(localStorage.getItem('swcClasses'))
+        let links = JSON.parse(localStorage.getItem('swcLinks'))
+        let commonLinks = JSON.parse(localStorage.getItem('swcCommonLinks'))
+        let firstTime = JSON.parse(localStorage.getItem('swcFirstTime'))
+        let visited = JSON.parse(localStorage.getItem('visitedMenus'))
+        let agendas = JSON.parse(localStorage.getItem('swcAgendas'))
+
+        let chunkyJSON = ["SwiftClass Instance File"]
+
+        chunkyJSON.push({
+            Settings: settings,
+            Classes: classes,
+            Links: links,
+            CommonLinks: commonLinks,
+            Agendas: agendas,
+        })
+
+        let jsonString = JSON.stringify(chunkyJSON, null, 2)
+        const blob = new Blob([jsonString], { type: 'application/json' })
+
+        const url = URL.createObjectURL(blob)
+
+        let a = document.createElement('a')
+        a.href = url
+
+        let timestamp = new Date().toLocaleString()
+        timestamp.replace(/[/,: ]/g, '-')
+
+        a.download = timestamp + ".swc"
+        a.click()
+
+        URL.revokeObjectURL(url)
+    })
+
+    b2.appendChild(d2)
+
+    baseContent.appendChild(b2)
 }

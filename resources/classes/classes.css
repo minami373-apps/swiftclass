@@ -70,7 +70,7 @@
 }
 
 .classHeader {
-    font-size: clamp(12px, 3vmin, 33px);
+    font-size: clamp(12px, 2.5vmin, 33px);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -82,7 +82,16 @@
 }
 
 .classSubHeader {
-    font-size: clamp(7px, 2.5vmin, 34px);
+    font-size: clamp(7px, 2.2vmin, 34px);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+}
+
+.classPeriod {
+    font-size: clamp(7px, 1.7vmin, 34px);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -129,7 +138,7 @@ h2 {
     background-color: rgba(0, 0, 0, 0.2);
     color: #FFFFFF;
     border-radius: 5px;
-    font-size: clamp(3px, 1.5vmin, 15px);
+    font-size: clamp(3px, 1.5vmin, 12px);
     display: flex;
     justify-content: center;
     align-items: center;

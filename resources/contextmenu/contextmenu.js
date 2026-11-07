@@ -1,9 +1,10 @@
 class ContextMenu {
 
-    constructor(menuItems, menuType, itemValues) {
+    constructor(menuItems, menuType, itemValues, warning) {
         this.menuItems = menuItems
         this.menuType = menuType
         this.itemValues = itemValues
+        this.warning = warning
         this.data = []
     }
 
@@ -15,7 +16,8 @@ class ContextMenu {
                     'teacher',
                     'name',
                     'color',
-                    'block'
+                    'block',
+                    'selectors'
                 ]
 
             this.menuItems.forEach(element => {
@@ -261,6 +263,39 @@ class ContextMenu {
                             })
                         }
                         break;
+                    case 'selectors':
+                        {
+
+                            let values = this.itemValues[index]
+                            console.error(values)
+
+                            if(values == null) throw new Error("The Checkboxes data type NEEDS a preset input")
+
+                            this.data[index] = []
+
+                            values.forEach((value, valueIndex) => {
+                                this.data[index].push(false)
+
+                                let input = document.createElement('input')
+                                input.type = 'checkbox'
+                                input.id = 'checkbox' + valueIndex
+                                input.checked = false
+
+                                let label = document.createElement('label')
+                                label.classList.add('checkboxClass')
+                                label.appendChild(input)
+                                label.append(document.createTextNode(value))
+
+                                input.addEventListener('change', (event) => {
+                                    this.data[index][valueIndex] = event.currentTarget.checked
+                                    console.log(event.currentTarget.checked)
+                                })
+
+                                contextMenu.appendChild(label)
+                                contextMenu.appendChild(document.createElement('br'))
+                            })
+
+                        }
                 }
             })
 
@@ -271,6 +306,11 @@ class ContextMenu {
             submitButton.textContent = 'Submit'
             submitButton.type = 'submit'
             submitButton.addEventListener('click', (event) => {
+
+                if(this.warning != null){
+                    if(!confirm(this.warning)) return
+                }
+
                 let invalid = false
                 this.linkIndices.forEach((element, index) => {
                     if (this.data[element] == null || this.data[element].slice(0, 4) != 'http') {
@@ -302,9 +342,9 @@ class ContextMenu {
     }
 }
 
-async function getResultsFromContextMenu(menuItems, menuType, itemValues) {
+async function getResultsFromContextMenu(menuItems, menuType, itemValues, warning) {
     try {
-        let contextMenu = new ContextMenu(menuItems, menuType, itemValues)
+        let contextMenu = new ContextMenu(menuItems, menuType, itemValues, warning)
         contextMenu.build()
 
         await wait(300)

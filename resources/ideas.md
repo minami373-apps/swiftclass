@@ -13,7 +13,7 @@
 - make theme reset button have greyscale also invert text
 
 # Thank you GitHub Copilot for generating the following dummy script:
-
+`
 localStorage.setItem('swcClasses', JSON.stringify([
   {
     "name": "Algebra II",
@@ -59,10 +59,10 @@ localStorage.setItem('swcClasses', JSON.stringify([
   },
   {}
 ]));
+`
 
-
-big local storage block you
-
+big local storage block
+`
   { name: "Google Classroom", link: "https://classroom.google.com" },
   { name: "Canvas", link: "https://canvas.instructure.com" },
   { name: "Khan Academy", link: "https://www.khanacademy.org" },
@@ -107,3 +107,4 @@ big local storage block you
   { name: "Kodable", link: "https://www.kodable.com" },
   { name: "Code.org", link: "https://code.org" },
   { name: "Typing.com", link: "https://www.typing.com" }
+`

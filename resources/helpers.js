@@ -119,7 +119,9 @@ function resetTheme(){
 
     settingsLoad.splice([settingsLoad.indexOf("Somewhat Bright Elements")], 2)
 
-    settingsLoad.splice([settingsLoad.indexOf("Background Image")], 2)
+    console.log(settingsLoad.indexOf("Background Image/Color"))
+
+    settingsLoad.splice([settingsLoad.indexOf("Background Image/Color")], 2)
 
     localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
     location.reload()
@@ -190,25 +192,6 @@ function showInfoSlides() {
     }
     let infoSlides = new InfoSlides("resources/info/json/" + sourcename + "/slides.json")
     infoSlides.render()
-}
-
-function resetTheme(){
-    if(!confirm("Are you sure you want to reset the theme? This will reset all settings to their default values.")){
-        return
-    }
-    let settingsLoad = localStorage.getItem('swcsettings')
-    settingsLoad = JSON.parse(settingsLoad)
-
-    settingsLoad.splice([settingsLoad.indexOf("Dark Elements")], 2)
-
-    settingsLoad.splice([settingsLoad.indexOf("Light Elements")], 2)
-
-    settingsLoad.splice([settingsLoad.indexOf("Somewhat Bright Elements")], 2)
-
-    settingsLoad.splice([settingsLoad.indexOf("Background Image / Color")], 2)
-
-    localStorage.setItem('swcsettings', JSON.stringify(settingsLoad))
-    location.reload()
 }
 
 setInterval(() => {

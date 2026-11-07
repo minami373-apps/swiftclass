@@ -216,14 +216,22 @@
     color: rgb(var(--c1));
     border-radius: 5px;
     text-align: center;
-    font-size: clamp(12px, 3vmin, 35px);
-    min-width: 15%;
+    font-size: clamp(12px, 2.3vmin, 28px);
     height: 80%;
     font-weight: 600;
-    white-space: nowrap;
+    white-space: wrap;
     margin: 1%;
     transition: 0.25s ease;
     position: relative;
+    min-width: 7vw;
+    width: fit-content;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 0.2fr;
+}
+
+.commonLinkClickable::before, .commonLinkClickable::after {
+    height: 60%;
 }
 
 .commonLinkClickable:hover {
@@ -241,7 +249,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: clamp(12px, 3.5vmin, 40px);
+    font-size: clamp(12px, 3.2vmin, 40px);
     font-weight: 600;
 }
 
@@ -253,8 +261,8 @@
 .altTrack {
     position: absolute;
     bottom: 0;
-    margin-bottom: 0.5%;
     width: 100%;
+    background-color: rgba(var(--c3), 0.7);
 }
 
 .altEdit {
@@ -264,4 +272,8 @@
 
 .altEdit:hover {
     filter: brightness(1.1) !important;
+}
+
+.commonLinkClickable.contextMenuOpen {
+    padding: 1% 4% 1% 4% !important;
 }

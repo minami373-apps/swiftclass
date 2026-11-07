@@ -114,15 +114,21 @@ function classGen(){
 
             let classHeader = document.createElement('div')
             classHeader.classList.add('classHeader')
-            classHeader.textContent = "Period " + String((i+1)) + ': ' + c.name
+            classHeader.textContent = c.name
             classHeader.style.color = textColor
             classPane.appendChild(classHeader)
 
             let classTeacher = document.createElement('span')
             classTeacher.classList.add('classSubHeader')
-            classTeacher.textContent = "Taught by " + c.teacher
+            classTeacher.textContent = "With " + c.teacher
             classTeacher.style.color = textColor
             classPane.appendChild(classTeacher)
+
+            let classPeriod = document.createElement('span')
+            classPeriod.classList.add('classPeriod')
+            classPeriod.textContent = "Period " + String(i + 1)
+            classPeriod.style.color = textColor
+            classPane.appendChild(classPeriod)
 
             // Actual Buttons
 

@@ -35,5 +35,10 @@
         "type": "background",
         "description": "The URL or color of the background image to use. Leave blank to use the default blue gradient as your background.",
         "value": ""
+    },
+    {
+        "header": "Import/Export",
+        "name": "!ignore",
+        "type": "!ignore"
     }
 ]

@@ -492,6 +492,7 @@ function linksGen(...args) {
             clickable.innerHTML = '<i class="fa-solid fa-pencil contextMenuOpen"></i>'
             clickable.style.fontSize = '4vmin'
             clickable.classList.add('flexCenter')
+            clickable.classList.add('contextMenuOpen')
 
             clickable.addEventListener('click', (event) => {
 
@@ -514,7 +515,9 @@ function linksGen(...args) {
         }
         else
         {
-            clickable.textContent = commonLinks[i].name
+            let text = document.createElement('span')
+            text.textContent = commonLinks[i].name
+            clickable.appendChild(text)
             clickable.addEventListener('click', (event) => {
                 window.open(commonLinks[i].link)
             })   

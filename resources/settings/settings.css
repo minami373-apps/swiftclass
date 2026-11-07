@@ -74,7 +74,7 @@
     width: fit-content;
     padding: 1%;
     margin: 1%;
-    font-size: clamp(14px, 2vmin, 24px);
+    font-size: clamp(14px, 2vmin, 30px);
     user-select: none;
     border-radius: 5px;
     transition: 0.25s ease;
@@ -207,6 +207,53 @@
 
 .selectorButton:active {
     background-color: rgb(var(--c3));
+    color: rgb(var(--c1));
+    transform: scale(0.95);
+}
+
+.importExportInteract {
+    height: 40%;
+}
+
+.importExportHeader {
+    font-size: clamp(14px, 3vmin, 50px);
+    font-weight: 600;
+}
+.importExportDesc {
+    font-size: clamp(14px, 2.2vmin, 26px);
+}
+
+.importExportFile {
+    width: fit-content;
+    border: 0.2vmin solid rgb(var(--c3));
+    display: inline-block;
+    padding: 1%;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.exportButton {
+    background-color: rgb(var(--c3));
+    color: rgb(var(--c1));
+    font-weight: 500;
+    width: fit-content;
+    height: fit-content;
+    padding: 1%;
+    margin: 0.5% 0.5% 0.5% 0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.25s ease;
+    transform-origin: left;
+}
+
+.exportButton:hover {
+    background-color: rgb(var(--c2));
+    color: rgb(var(--c1));
+    transform: scale(1.1);
+}
+
+.exportButton:active {
+    background-color: rgb(var(--c2));
     color: rgb(var(--c1));
     transform: scale(0.95);
 }
