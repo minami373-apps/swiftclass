@@ -42,11 +42,21 @@ function linksGen(...args) {
     let sectorB = document.createElement('div')
     sectorB.classList.add('sectorB')
     baseContent.appendChild(sectorB)
+    
+    let commonTabMain = document.createElement('div')
+    commonTabMain.classList.add('commonTabMain')
+    commonTabMain.classList.add('linkPart')
+    sectorB.appendChild(commonTabMain)
+
+    let commonTabText = document.createElement('span')
+    commonTabText.textContent = 'Common Links'
+    commonTabText.classList.add('commonTabText')
+    commonTabMain.appendChild(commonTabText)
 
     let commonTab = document.createElement('div')
     commonTab.classList.add('commonTab')
     commonTab.classList.add('linkPart')
-    sectorB.appendChild(commonTab)
+    commonTabMain.appendChild(commonTab)
 
     let linksTab = document.createElement('div')
     linksTab.classList.add('linksTab')
@@ -114,7 +124,7 @@ function linksGen(...args) {
 
                 if(classLinks[0].length == 0){
                     let noLinksText = document.createElement('span')
-                    noLinksText.textContent = "This section has no links. Use the button below to add one."
+                    noLinksText.textContent = "This class's section has no links. Use the button below to add one."
                     noLinksText.classList.add('noLinksText')
                     linksTab.appendChild(noLinksText)
                 }
@@ -172,11 +182,18 @@ function linksGen(...args) {
                     linksTab.appendChild(linkClickable)
                 })
 
+                let lineBreak = document.createElement('div')
+                lineBreak.classList.add('lineBreak')
+                lineBreak.style.margin = '1%'
+                lineBreak.style.width = '98%'
+                linksTab.appendChild(lineBreak)
+
                 let addLinkButton = document.createElement('div')
                 addLinkButton.classList.add('addLinkButton')
                 addLinkButton.classList.add('contextMenuOpen')
 
                 addLinkButton.textContent = "Add Link"
+
                 linksTab.appendChild(addLinkButton)
 
                 addLinkButton.addEventListener('click', (event) => {
@@ -313,11 +330,18 @@ function linksGen(...args) {
                 })
             })
 
+            let lineBreak = document.createElement('div')
+            lineBreak.classList.add('lineBreak')
+            lineBreak.style.margin = '1%'
+            lineBreak.style.width = '98%'
+            linksTab.appendChild(lineBreak)
+
             let addLinkButton = document.createElement('div')
                 addLinkButton.classList.add('addLinkButton')
                 addLinkButton.classList.add('contextMenuOpen')
 
                 addLinkButton.textContent = "Add Link"
+
                 linksTab.appendChild(addLinkButton)
 
                 addLinkButton.addEventListener('click', (event) => {
@@ -433,5 +457,114 @@ function linksGen(...args) {
                 element.click()
             }
         })
+    }
+
+    // Now, common links. That mess is done
+
+    if(localStorage.getItem('swcCommonLinks') == null){
+        localStorage.setItem(
+            'swcCommonLinks', JSON.stringify
+            (
+            [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+            ]
+            )
+    )
+    }
+
+    let commonLinks = JSON.parse(localStorage.getItem('swcCommonLinks'))
+    let commonLinkContainer = document.getElementsByClassName('commonTab')[0]
+
+    for(let i = 0;i < 8;i++){
+        
+        let clickable = document.createElement('div')
+        clickable.classList.add('commonLinkClickable')
+        commonLinkContainer.appendChild(clickable)
+
+        if(commonLinks[i].name == undefined){
+            clickable.innerHTML = '<i class="fa-solid fa-pencil contextMenuOpen"></i>'
+            clickable.style.fontSize = '4vmin'
+            clickable.classList.add('flexCenter')
+
+            clickable.addEventListener('click', (event) => {
+
+                let newLink = getResultsFromContextMenu(["name", "link"], "Add Link", [])
+
+                newLink.then((newLink) => {
+
+                    let jsonRead = JSON.parse(localStorage.getItem('swcCommonLinks'))
+                    jsonRead[i] = {
+                        "name": newLink[0],
+                        "link": newLink[1]
+                    }
+
+                    localStorage.setItem("swcCommonLinks", JSON.stringify(jsonRead))
+                    updateMenus()
+                    
+                })
+
+            })
+        }
+        else
+        {
+            clickable.textContent = commonLinks[i].name
+            clickable.addEventListener('click', (event) => {
+                window.open(commonLinks[i].link)
+            })   
+
+            let controlTrack = document.createElement('div')
+            controlTrack.classList.add('controlTrack')
+            controlTrack.classList.add('altTrack')
+            clickable.appendChild(controlTrack)
+
+            let editButton = document.createElement('div')
+            editButton.classList.add('removalButton')
+            editButton.classList.add('altEdit')
+            editButton.classList.add('contextMenuOpen')
+            editButton.innerHTML = '<i class="fa-solid fa-pencil contextMenuOpen"></i>'
+
+            editButton.addEventListener('click', (event) => {
+                event.stopPropagation()
+                let newLink = getResultsFromContextMenu(["name", "link"], "Edit Link", [commonLinks[i].name, commonLinks[i].link])
+                
+                newLink.then((newLink) => {
+                    let jsonRead = JSON.parse(localStorage.getItem('swcCommonLinks'))
+                    jsonRead[i] = {
+                        "name": newLink[0],
+                        "link": newLink[1]
+                    }
+
+                    localStorage.setItem("swcCommonLinks", JSON.stringify(jsonRead))
+                    updateMenus() 
+                })
+            })
+
+            let removalButton = document.createElement('div')
+            removalButton.classList.add('removalButton')
+            removalButton.classList.add('altEdit')
+            
+            removalButton.addEventListener('click', (event) => {
+                event.stopPropagation()
+
+                if(!confirm("Are you sure you want to remove this link?")) return
+
+                let jsonRead = JSON.parse(localStorage.getItem('swcCommonLinks'))
+                jsonRead[i] = {}
+                localStorage.setItem("swcCommonLinks", JSON.stringify(jsonRead))
+                updateMenus() 
+            })
+
+            removalButton.innerHTML = '<i class="fa-solid fa-x"></i>'
+            controlTrack.appendChild(removalButton)
+            controlTrack.appendChild(editButton)
+
+        }
     }
 }

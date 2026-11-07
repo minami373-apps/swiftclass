@@ -70,7 +70,7 @@
 }
 
 .classHeader {
-    font-size: clamp(4px, 7cqi, 33px);
+    font-size: clamp(12px, 3vmin, 33px);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -82,7 +82,7 @@
 }
 
 .classSubHeader {
-    font-size: clamp(2px, 5.2cqi, 34px);
+    font-size: clamp(7px, 2.5vmin, 34px);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
