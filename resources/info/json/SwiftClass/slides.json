@@ -1,32 +1,32 @@
 [
   {
     "title": "Welcome to SwiftClass.",
-    "body": "Light as a feather, swift as a bird. Welcome to SwiftClass. This slideshow will show you how to use the app.\nClick Next to move on."
+    "body": "Welcome to SwiftClass. This slideshow will show you how to use the app.\nClick Next to move on."
   },
   {
     "title": "The Radial Menu",
     "body": "The Radial Menu is the fastest way to navigate through the app.\nIt can be opened by pressing Space or Right Mouse at any time. \nIt will appear at the mouse's position, and you can click on any of the buttons to navigate to a different page. It should look like the one below.\n",
-    "image": "resources/info/images/SwiftClass/radialmenu.png"
+    "image": "resources/info/images/SwiftClass/radial.png"
   },
   {
     "title": "The Home Page",
-    "body": "The home page is the starting point of SwiftClass.\nIt's where you can view the latest news. Most of your time will not be spent here, but you can still use the buttons below to navigate to other pages. It should look like the image below.",
-    "image": "resources/info/images/SwiftClass/homepage.png"
+    "body": "Let's start with the basics. The home page is the starting point of SwiftClass.\nIt's where you can view the latest news. \nMost of your time will not be spent here, but you can still use the 5 menu buttons underneath the news to navigate to other pages. It should look like the image below.",
+    "image": "resources/info/images/SwiftClass/home.png"
   },
   {
     "title": "The Settings Page",
-    "body": "The Settings menu is where you can change how the app works. \nThis includes themes (eventually), visual tweaks, possible performance changes, and notification control.",
+    "body": "The Settings menu is where you can change how the app works. \nThis includes color changes, and notification control. The Data Management section allows you to import and export saved data, like your classes or links.",
     "image": "resources/info/images/SwiftClass/settings.png"
   },
   {
     "title": "The Class Page",
-    "body": "The Classes Page is where you can view basic info about your classes.\nYou can see your teachers' names, a link associated with the class, and its assigned block. (if used)",
-    "image": "resources/info/images/default.png"
+    "body": "The Classes Page is where you can view basic info about your classes.\nYou can see your teachers' names, a link associated with the class, and its assigned period.",
+    "image": "resources/info/images/SwiftClass/classes.png"
   },
   {
     "title": "The Links Page",
-    "body": "The Links Page is where you can find all the important links related to your work. \nThey are fully customizable, so you can add any link you want. You can also organize them into types for better organization.",
-    "image": "resources/info/images/default.png"
+    "body": "The Links Page is where you can find all the important links related to your work. \nThey are fully customizable, so you can add any link you want. Additionally, they're separated into sections for each of your classes, and there's also custom-made personal sections for your specific needs. \nThe top right of the menu has 8 quick access links that are for general use.",
+    "image": "resources/info/images/SwiftClass/links.png"
   },
   {
     "title": "The Agendas Page",
@@ -35,7 +35,7 @@
   },
   {
     "title": "Getting Started",
-    "body": "To get started, you should check out Settings and personalize the app to your liking. Afterward, you should add classes in the, well... Classes tab. Feel free to re-watch this slideshow by clicking the \"About this Page\" button in the bottom left corner of the screen.",
-    "image": "resources/info/images/default.png"
+    "body": "To get started, you should check out Settings and personalize the app to your liking. \nAfterward, you should add classes in the, well... Classes tab. \nFeel free to re-watch this slideshow by clicking the \"About this Page\" button in the bottom left corner of the screen. Stay tuned for 1.0.0 on 12/1!",
+    "image": "resources/news/new.png"
   }
 ]

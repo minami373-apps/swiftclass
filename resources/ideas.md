@@ -8,10 +8,6 @@
 
 - *SwiftClass Resources*: An optional tab that can be shown or not shown in settings. It would have resources that are commonly used in classes, like the periodic table and other things.
 
-- please make the theme duotone and not tri-tone it just hurts me more and more every day
-
-- make theme reset button have greyscale also invert text
-
 # Thank you GitHub Copilot for generating the following dummy script:
 `
 localStorage.setItem('swcClasses', JSON.stringify([
@@ -61,7 +57,7 @@ localStorage.setItem('swcClasses', JSON.stringify([
 ]));
 `
 
-big local storage block
+# big local storage block
 `
   { name: "Google Classroom", link: "https://classroom.google.com" },
   { name: "Canvas", link: "https://canvas.instructure.com" },

@@ -1,7 +1,22 @@
 [
   {
-    "title": "This is a placeholder slideshow to make the errors go away :)",
-    "body": "Read the title!!!!!!!!!!!!!",
-    "image": "./resources/info/images/default.png"
+    "title": "This is the settings menu.",
+    "body": "In my opinion, this is probably the simplest menu besides the home page to understand. \n This slideshow isn't that necessary to be honest.",
+    "image": "resources/info/images/Settings/settings.png"
+  },
+  {
+    "title": "Sections and Headers",
+    "body": "The most fundamental part of the settings menu are the buttons up top that signify topics. \nClick on one to open the settings associated with it.",
+    "image": "resources/info/images/Settings/headers.png"
+  },
+  {
+    "title": "Importing and Exporting an Instance",
+    "body": "The Data Management tab houses the most interesting part of the settings menu.\nBy exporting your SwiftClass instance, it saves ALL of your data to a file.\nYou can take that file and import it on any device in SwiftClass and your data will be present there.\nI recommend emailing the file to yourself or using Google Drive to move it between devices.",
+    "image": "resources/info/images/Settings/imptexpt.png"
+  },
+  {
+    "title": "Changing the Theme",
+    "body": "SwiftClass's color scheme and background image can be modified in the \"Appearance and Visuals\" section.\nI recommend that you don't make the theme anything with too high contrast, you'll be disappointed.\nYou should probably also keep the light elements white, as most of the text in the app will look weird if it's not white.",
+    "image": "resources/info/images/Settings/appearance.png"
   }
 ]

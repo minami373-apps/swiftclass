@@ -235,6 +235,7 @@
 .exportButton {
     background-color: rgb(var(--c3));
     color: rgb(var(--c1));
+    font-size: clamp(14px, 2vmin, 18px);
     font-weight: 500;
     width: fit-content;
     height: fit-content;

@@ -1,0 +1,16 @@
+[
+  {
+    "title": "This is the classes menu, the foundation of SwiftClass.",
+    "body": "The Classes menu, once you intially fill out the info for your classes, will not be very relevant to you.",
+    "image": "resources/info/images/Classes/classes.png"
+  },
+  {
+    "title": "The Purpose of the Classes menu",
+    "body": "This menu should be one of the first things you set up (hopefully). Fill out each class's box with the information from each class period.\nIf the default number of class periods is not right for you, change it in settings.",
+    "image": "resources/info/images/Classes/classes.png"
+  },
+  {
+    "title": "Some Tips",
+    "body": "Don't expect yourself to frequently come here. The classes you add here are more important in your agendas and saved links.\nThe class's page/link should be something like Google Classroom or Canvas."
+  }
+]

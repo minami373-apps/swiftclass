@@ -535,7 +535,7 @@ async function settingsGen(){
                 settingsLoad = JSON.parse(settingsLoad)
                 // console.log('Loaded settings: ')
                 // console.log(settingsLoad)
-                if(header.textContent != "Import/Export") {
+                if(header.textContent != "Data Management") {
                     settingsJSON.forEach(async (element) => {
                         if (!settingsLoad.includes(element.name)) {
                             settingsLoad.push(element.name)
@@ -649,6 +649,7 @@ async function generateImportExport() {
 
                                         }
                                     })
+                                location.reload()
                                 })
                         })
 
