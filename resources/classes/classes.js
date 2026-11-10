@@ -1,4 +1,4 @@
-function classGen(){
+async function classGen(){
     try{
     // baseContent.classList.add('classesGrid')
 
@@ -127,7 +127,7 @@ function classGen(){
             let classPeriod = document.createElement('span')
             classPeriod.classList.add('classPeriod')
             classPeriod.textContent = "Period " + String(i + 1)
-            classPeriod.style.color = textColor
+            classPeriod.style.color = textColor + "CE"
             classPane.appendChild(classPeriod)
 
             // Actual Buttons
@@ -146,6 +146,48 @@ function classGen(){
             buttonsTrack.appendChild(jumpToLinkButton)
             jumpToLinkButton.addEventListener('click', (event) => {
                 window.open(c.link)
+            })
+
+            let notesButton = document.createElement('div')
+            notesButton.classList.add('trackButton')
+            notesButton.textContent = "Open Notes"
+            buttonsTrack.appendChild(notesButton)
+
+            notesButton.addEventListener('click', (event) => {
+                document.querySelectorAll('.classPane').forEach(async (c)=>{
+                    c.classList.add('hideAway')
+                    c.classList.add('cleanTransition')
+                    await wait(800)
+                    c.style.display = 'none'
+                })
+
+                let returnButton = document.createElement('div')
+                returnButton.classList.add('returnButton')
+                returnButton.textContent = "Return"
+                setTimeout(() => {
+                returnButton.addEventListener('click', async (event) => {
+
+                    document.querySelectorAll('.classPane').forEach(async (c) => {
+                        c.style.display = ''
+
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => c.classList.remove('hideAway'));
+                        });
+
+                        await wait(800)
+                        c.classList.remove('cleanTransition')
+                    })
+
+                    event.currentTarget.classList.add('smallProp')
+
+                    await wait(300)
+
+                    returnButton.remove()
+                })
+
+                if(document.getElementsByClassName('returnButton').length == 0) baseContent.appendChild(returnButton)
+
+            }, 1000)
             })
 
             let editButton = document.createElement('div')

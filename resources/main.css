@@ -225,7 +225,7 @@ div {
     justify-content: center;
     border-radius: 5px;
     transition: 0.25s ease;
-    font-size: clamp(12px, 1.15cqi, 26px);
+    font-size: clamp(10px, 1.7vmin, 24px);
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -250,7 +250,7 @@ div {
     padding-right: 0.5%;
     border-radius: 5px;
     transition: 0.25s ease;
-    font-size: clamp(14px, 1cqi, 18px);
+    font-size: clamp(14px, 1.3vmin, 24px);
     white-space: nowrap;
     text-align: center;
     cursor: pointer;

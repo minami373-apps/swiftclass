@@ -78,7 +78,6 @@
     display: inline-block;
     font-weight: 600;
     display: flex;
-    margin-bottom: 1%;
 }
 
 .classSubHeader {
@@ -87,11 +86,12 @@
     text-overflow: ellipsis;
     overflow: hidden;
     width: 100%;
+    margin-bottom: 1%;
     display: flex;
 }
 
 .classPeriod {
-    font-size: clamp(7px, 1.7vmin, 34px);
+    font-size: clamp(7px, 1.8vmin, 34px);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -138,7 +138,7 @@ h2 {
     background-color: rgba(0, 0, 0, 0.2);
     color: #FFFFFF;
     border-radius: 5px;
-    font-size: clamp(3px, 1.5vmin, 12px);
+    font-size: clamp(3px, 1.08vmin, 18px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -159,4 +159,35 @@ h2 {
 .trackButton:active {
     background-color: rgba(0, 0, 0, 0.6);
     scale: 0.95;
+}
+
+.hideAway {
+    transform: translateX(-120vw);
+    opacity: 0;
+}
+
+.cleanTransition {
+    transition: 0.8s cubic-bezier(.8,-0.02,.54,.89);
+}
+
+.returnButton {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 2%;
+    background-color: rgb(var(--c3));
+    color: rgb(var(--c1));
+    padding: 0.2% 0.5% 0.2% 0.5%;
+    border-radius: 5px;
+    transition: 0.25s ease;
+}
+
+.returnButton:hover {
+    background-color: rgb(var(--c2));
+    color: rgb(var(--c1));
+    transform: scale(1.05);
+}
+
+.returnButton:active {
+    transform: scale(0.95);
 }
