@@ -6,6 +6,8 @@
 
 - *Responsive Grade Tracking*: Based on your target grade values and possibly weighting systems, assignments in your agenda can gain priority. (if you have a 70 in a class and an assignment is due, it would gain max priority)
 
+- *Weighted Grade Calculator*: Like the one from calculator.com you know what im talking bout
+
 - *SwiftClass Resources*: An optional tab that can be shown or not shown in settings. It would have resources that are commonly used in classes, like the periodic table and other things.
 
 # Thank you GitHub Copilot for generating the following dummy script:
@@ -104,3 +106,5 @@ localStorage.setItem('swcClasses', JSON.stringify([
   { name: "Code.org", link: "https://code.org" },
   { name: "Typing.com", link: "https://www.typing.com" }
 `
+
+<img src="https://github.com/minami373-apps/biodivers/releases/download/t19/IMG_1799.jpeg">

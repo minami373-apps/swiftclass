@@ -76,7 +76,7 @@ async function classGen(){
                         'color'
                     ],
                     'Class Creator',
-                    ['', '', '', '#FFFFFF'], '1')
+                    ['', '', '', '#FFFFFF'])
                 newClass.then((newClass) => {
                     let jsonRead = localStorage.getItem('swcClasses')
                     console.log(window.classToAdd)
@@ -154,6 +154,7 @@ async function classGen(){
             buttonsTrack.appendChild(notesButton)
 
             notesButton.addEventListener('click', (event) => {
+
                 document.querySelectorAll('.classPane').forEach(async (c)=>{
                     c.classList.add('hideAway')
                     c.classList.add('cleanTransition')
@@ -188,6 +189,9 @@ async function classGen(){
                 if(document.getElementsByClassName('returnButton').length == 0) baseContent.appendChild(returnButton)
 
             }, 1000)
+
+            generateNotes(i)
+
             })
 
             let editButton = document.createElement('div')
@@ -245,6 +249,46 @@ async function classGen(){
         }
     }
 }catch(e){
-    alert(e.stack)
+    alert('abc')
 }
+}
+
+async function generateNotes(period){
+
+    /*
+    
+    swcNotes local storage syntax:
+    main list [
+    each class has a list []
+    ]
+
+    */
+
+    console.warn("Index Index: " + String(period))
+
+    if(localStorage.getItem('swcNotes') == null){
+
+        localStorage.setItem("swcNotes", JSON.stringify(
+            [
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                [],
+                []
+            ]
+        ))
+    }
+
+    let notesHeader = document.createElement('span')
+    notesHeader.classList.add('sectionBigHeader')
+    notesHeader.textContent = "Your notes taken for " + JSON.parse(localStorage.getItem('swcClasses')).period.name
+    baseContent.appendChild(notesHeader)
+
 }

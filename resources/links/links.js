@@ -97,6 +97,18 @@ function linksGen(...args) {
         } else {
             e.style.backgroundColor = element.color + 'AA'
             e.dataset.period = i
+            
+            let redvalue = EightBitHexToDecimal(element.color.slice(1, 3))
+            let greenvalue = EightBitHexToDecimal(element.color.slice(3, 5))
+            let bluevalue = EightBitHexToDecimal(element.color.slice(-2))
+            let average = ((redvalue + greenvalue + bluevalue) / 3)
+
+            if(average > 180){
+                e.style.color = "#000000"
+            }
+            else{
+                e.style.color = "#FFFFFF"
+            }
 
         }
 

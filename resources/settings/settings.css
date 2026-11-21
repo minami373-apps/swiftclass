@@ -57,8 +57,7 @@
     padding-bottom: 0.5%;
     height: fit-content;
     background-color: rgba(var(--c3));
-    /* border: 4px solid rgb(var(--c1)); */
-    margin-bottom: 2%;
+    /* border: 4px solid rgb(var(--c1)); */ 
     border-radius: 5px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -181,7 +180,7 @@
 }
 
 .selectorButton {
-     background-color: rgb(var(--c3));
+    background-color: rgb(var(--c3));
     color: rgb(var(--c1));
     font-weight: 500;
     width: fit-content;
@@ -257,4 +256,11 @@
     background-color: rgb(var(--c2));
     color: rgb(var(--c1));
     transform: scale(0.95);
+}
+
+.introSettingsText {
+    margin: 1%;
+    display: block;
+    font-size: 5vmin;
+    color: rgba(var(--c3));
 }

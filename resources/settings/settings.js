@@ -57,10 +57,10 @@ class Setting {
                     if(!reloadButton.classList.contains('reloadPulse')){
                         reloadButton.classList.add('reloadPulse')
                     }
-                    if (this.value == 'off') {
-                        this.value = 'on'
+                    if (this.value == 'false') {
+                        this.value = 'true'
                     } else {
-                        this.value = 'off'
+                        this.value = 'false'
                     }
 
                     let settingsLoad = localStorage.getItem('swcsettings')
@@ -470,7 +470,12 @@ async function settingsGen(){
         }
     }
 
-    window.settingHeaderType = allHeaders[0]
+    // window.settingHeaderType = allHeaders[0]
+
+    let introText = document.createElement('span')
+    introText.textContent = "Click on a header to begin editing settings."
+    introText.classList.add('introSettingsText')
+    baseContent.appendChild(introText)
 
     window.currentMenu = 'Settings' + ' - ' + window.settingHeaderType
 
@@ -715,6 +720,7 @@ async function generateImportExport() {
         let firstTime = JSON.parse(localStorage.getItem('swcFirstTime'))
         let visited = JSON.parse(localStorage.getItem('visitedMenus'))
         let agendas = JSON.parse(localStorage.getItem('swcAgendas'))
+        let notes = JSON.parse(localStorage.getItem('swcNotes'))
 
         let chunkyJSON = ["SwiftClass Instance File"]
 

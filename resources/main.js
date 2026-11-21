@@ -223,7 +223,7 @@ aspectRatioBlocker.classList.add('aspectRatioBlocker')
 aspectRatioBlocker.classList.add('shrink')
 aspectRatioBlocker.id = 'aspectRatioBlocker'
 aspectRatioBlocker.style.display = 'none'
-aspectRatioBlocker.style.zIndex = '9999'
+aspectRatioBlocker.style.zIndex = '99'
 document.body.appendChild(aspectRatioBlocker)
 
 let blockerText = document.createElement('span')

@@ -35,6 +35,9 @@ class ContextMenu {
 
             let contextMenu = document.createElement('form')
             contextMenu.classList.add('contextMenuForm')
+            contextMenu.addEventListener('submit', (event) => {
+                event.preventDefault()
+            })
             contextMenuH.appendChild(contextMenu)
 
             let shortTitle = document.createElement('span')
@@ -295,6 +298,7 @@ class ContextMenu {
                                 contextMenu.appendChild(document.createElement('br'))
                             })
 
+                            contextMenu.appendChild(document.createElement('hr'))
                         }
                 }
             })
@@ -304,8 +308,15 @@ class ContextMenu {
             let submitButton = document.createElement('div')
             submitButton.classList.add('contextButton')
             submitButton.textContent = 'Submit'
-            submitButton.type = 'submit'
+            submitButton.tabIndex = 0
+            submitButton.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault()
+                }
+            })
             submitButton.addEventListener('click', (event) => {
+
+                console.error(this.warning)
 
                 if(this.warning != null){
                     if(!confirm(this.warning)) return
