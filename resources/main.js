@@ -1,4 +1,5 @@
 window.currentMenu = 'SwiftClass'
+window.contextMenuActive = false
 
 if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsettings',
     '[]'
@@ -335,6 +336,10 @@ async function updateMenus(...args) {
             if(args[0].relatedMenu == 'Links'){
                 window.currentMenu = 'Links'
                 linksGen(args[0])
+            }
+            if(args[0].relatedMenu == 'Notes'){
+                window.currentMenu = 'Classes'
+                classGen(args[0])
             }
        }
     }

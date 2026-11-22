@@ -40,16 +40,9 @@ function extractSetting(settingName) {
     return settingsLoad[settingsLoad.indexOf(settingName) + 1]
 }
 
-function resetAllFooters(){
-    document.querySelectorAll('.footerButton')
-        .forEach(element => {
-            if(element.classList.contains('deny')){
-                element.classList.remove('deny');
-            }
-        })
-}
-
 async function closeMenu(event){
+    window.contextMenuActive = false
+
     console.log("Closing menu")
     console.log(event)
     document.getElementById('contextMenu').classList.add('small')
@@ -77,24 +70,6 @@ async function closeMenuOnMouse(event){
     closeMenu(event)
 }
 
-async function typeMenuName(...args){
-    window.denySettingMovement = true
-    let name = ''
-    document.getElementById('topHeader').textContent = '...'
-    let nameCache = window.currentMenu
-    for(let i = 0;i < nameCache.length;i++){
-        name += nameCache[i]
-        await wait(45)
-        document.getElementById('topHeader').textContent = name
-    }
-    window.denySettingMovement = false
-    console.log(args)
-    if(args[0]){
-        document.querySelectorAll('.footerButton').forEach(element => {
-            element.classList.remove('deny')
-        })
-    }
-}
 
 function showInfoSlides() {
     console.log(window.currentMenu)
@@ -136,32 +111,6 @@ function resetAllFooters(){
         })
 }
 
-async function closeMenu(event){
-    console.log("Closing menu")
-    console.log(event)
-    document.getElementById('contextMenu').classList.add('small')
-    await wait(300)
-    document.getElementById('contextMenu').remove()
-}
-
-async function closeMenuOnEsc(event){
-    if(event.key == 'Escape'){
-        closeMenu(event)
-    }
-}
-
-async function closeMenuOnMouse(event){
-    let contextMenu = document.getElementById('contextMenu')
-
-    if(contextMenu == null) return
-    if(contextMenu.contains(event.target)) return
-
-    if(event.target.classList.contains('contextMenuOpen')){
-        return
-    }
-
-    closeMenu(event)
-}
 
 async function typeMenuName(...args){
     document.querySelectorAll('.footerButton').forEach(element => {
@@ -181,17 +130,6 @@ async function typeMenuName(...args){
         document.querySelectorAll('.footerButton').forEach(element => {
             element.classList.remove('deny')
         })
-}
-
-function showInfoSlides() {
-    let sourcename = window.currentMenu
-    if(sourcename.includes("Settings")){
-        sourcename = "Settings"
-    }else if(sourcename == 'Classes'){
-        sourcename = window.caSubMenu
-    }
-    let infoSlides = new InfoSlides("resources/info/json/" + sourcename + "/slides.json")
-    infoSlides.render()
 }
 
 setInterval(() => {

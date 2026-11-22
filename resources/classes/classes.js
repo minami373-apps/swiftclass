@@ -1,4 +1,4 @@
-async function classGen(){
+async function classGen(custom){
     try{
     // baseContent.classList.add('classesGrid')
 
@@ -153,7 +153,25 @@ async function classGen(){
             notesButton.textContent = "Open Notes"
             buttonsTrack.appendChild(notesButton)
 
+            console.log(custom)
+
+            if(custom !== undefined) {
+                console.log(custom.period)
+                if (custom.period == i) {
+                    console.log("THEN DO ADLOKJw")
+                    setTimeout(() => {notesButton.click()}, 100)
+                }
+            }
+
+            window.notesOff = false
+
             notesButton.addEventListener('click', (event) => {
+
+                if(window.notesOff) return
+
+                window.notesOff = true
+
+                setTimeout(() => {notesOff = false}, 1000)
 
                 document.querySelectorAll('.classPane').forEach(async (c)=>{
                     c.classList.add('hideAway')
@@ -184,6 +202,7 @@ async function classGen(){
                     await wait(300)
 
                     returnButton.remove()
+                    document.getElementById('notesBase').remove()
                 })
 
                 if(document.getElementsByClassName('returnButton').length == 0) baseContent.appendChild(returnButton)
@@ -264,8 +283,6 @@ async function generateNotes(period){
 
     */
 
-    console.warn("Index Index: " + String(period))
-
     if(localStorage.getItem('swcNotes') == null){
 
         localStorage.setItem("swcNotes", JSON.stringify(
@@ -286,9 +303,137 @@ async function generateNotes(period){
         ))
     }
 
-    let notesHeader = document.createElement('span')
-    notesHeader.classList.add('sectionBigHeader')
-    notesHeader.textContent = "Your notes taken for " + JSON.parse(localStorage.getItem('swcClasses')).period.name
-    baseContent.appendChild(notesHeader)
+    await wait(300)
 
+    let notesBase = document.createElement('section')
+    notesBase.classList.add('notesBase')
+    notesBase.id = "notesBase"
+    baseContent.appendChild(notesBase)
+
+    let notesHeader = document.createElement('div')
+    notesHeader.classList.add('notesMainHeader')
+    notesHeader.textContent = "Your notes taken for " + JSON.parse(localStorage.getItem('swcClasses'))[period].name + ":"
+    notesBase.appendChild(notesHeader)
+
+    let lineBreak = document.createElement('div')
+    lineBreak.classList.add('lineBreak')
+    lineBreak.style.backgroundColor = "rgb(var(--c3))"
+    lineBreak.style.width = '98%'
+    lineBreak.style.marginLeft = "1%"
+    notesBase.appendChild(lineBreak)
+
+    let collectiveObject = JSON.parse(localStorage.getItem('swcNotes'))
+
+    if(collectiveObject[period].length == 0){
+        let creatorHeader = document.createElement('div')
+        creatorHeader.classList.add('notesSecondaryHeader')
+        creatorHeader.textContent = "You have no note pages for this class. Use the button below to create some!"
+        notesBase.appendChild(creatorHeader)
+    }
+    else
+    {
+        // the fun part, keep in mind this is notes and not classes, i just bundled it with classes.js
+
+        collectiveObject[period].forEach((element, index) => {
+            let baseButton = document.createElement('div')
+            baseButton.classList.add('noteClickable')
+            baseButton.textContent = element.name
+            notesBase.appendChild(baseButton)
+            baseButton.classList.add('contextMenuOpen')
+
+            let buttonTrack = document.createElement('div')
+            buttonTrack.classList.add('controlTrack')
+            buttonTrack.classList.add("contextMenuOpen")
+            baseButton.appendChild(buttonTrack)
+
+            let removeButton = document.createElement('div')
+            removeButton.classList.add('removalButton')
+            removeButton.classList.add("contextMenuOpen")
+            removeButton.innerHTML = `<i class="fa-solid fa-x contextMenuOpen"></i>`
+            buttonTrack.appendChild(removeButton)
+
+            removeButton.addEventListener('click', (event) => {
+                event.stopPropagation()
+
+                if(!confirm("Do you want to delete this note page?")) return
+
+                collectiveObject[period].splice(index, 1)
+                localStorage.setItem('swcNotes', JSON.stringify(collectiveObject))
+                updateMenus({relatedMenu: "Notes", period: period})
+
+            })
+
+            let editButton = document.createElement('div')
+            editButton.classList.add('removalButton')
+            editButton.classList.add("contextMenuOpen")
+            editButton.innerHTML = `<i class="fa-solid fa-pencil contextMenuOpen"></i>`
+            buttonTrack.appendChild(editButton)
+
+            editButton.addEventListener('click', (event) => {
+
+                    event.stopPropagation()
+
+                    getResultsFromContextMenu(["name"], "Edit Page Name", [element.name]).then((data) => {
+
+                        collectiveObject[period][index].name = data[0]
+
+                        localStorage.setItem('swcNotes', JSON.stringify(collectiveObject))
+                        updateMenus({relatedMenu: "Notes", period: period})
+                })
+            })
+
+            // Base Button Event
+
+            baseButton.addEventListener('click', async (event) => {
+                event.stopPropagation()
+
+                let menu = new ContextMenu(["textarea"], element.name, [element.content], '')
+                menu.build()
+
+                document.addEventListener('click', closeMenuOnMouse)
+                document.addEventListener('keydown', closeMenuOnEsc)
+
+                while(window.contextMenuActive){
+                    console.log(window.contextMenuActive)
+                    await wait(30)
+
+                    collectiveObject[period][index].content = menu.data[0]
+                    localStorage.setItem('swcNotes', JSON.stringify(collectiveObject))
+                }
+
+                document.removeEventListener('click', closeMenuOnMouse)
+                document.removeEventListener('keydown', closeMenuOnEsc)
+            })
+
+        })
+    }
+
+    let addNoteButton = document.createElement('div')
+    addNoteButton.classList.add('addNoteButton')
+    addNoteButton.classList.add('contextMenuOpen')
+    addNoteButton.textContent = "Add Note Page"
+    addNoteButton.addEventListener('click', (event) => {
+
+        getResultsFromContextMenu(["name"], "Note Page Name", [""]).then((data) => {
+            let invalid = false
+            collectiveObject[period].forEach((element) => {
+                if(!invalid) {
+                    if (element.name == data[0]) {
+                        alert("You can't create two note pages with the same name.")
+                        invalid = true
+                    }
+                }
+            })
+
+            if(invalid) return
+
+            collectiveObject[period].push(
+                {name: data[0], content: ""}
+            )
+            localStorage.setItem('swcNotes', JSON.stringify(collectiveObject))
+            updateMenus({relatedMenu: "Notes", period: period})
+        })
+
+    })
+    notesBase.appendChild(addNoteButton)
 }

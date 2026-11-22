@@ -453,7 +453,7 @@ window.Setting = Setting
 
 
 async function settingsGen(){
-
+    window.settingHeaderType = ''
 
     let settingsList = await fetch('resources/settings/list.json')
     let settingsJSON = await settingsList.json()

@@ -10,6 +10,9 @@
 
 - *SwiftClass Resources*: An optional tab that can be shown or not shown in settings. It would have resources that are commonly used in classes, like the periodic table and other things.
 
+- *Coding Change*: Make it so whenever a class is deleted, you can choose to remove its links agendas notes etc. (checkboxes!)
+- *Wherever you can, make it so menus can be closed conveniently and not with buttons all the time.*
+
 # Thank you GitHub Copilot for generating the following dummy script:
 `
 localStorage.setItem('swcClasses', JSON.stringify([

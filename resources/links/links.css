@@ -55,6 +55,7 @@
 
 .linksHeader.usable:active {
     filter: brightness(1.4);
+    transform: scale(0.95);
 }
 
 .traditionalLinkHeader {
@@ -72,6 +73,7 @@
 .traditionalLinkHeader:active {
     background-color: rgba(var(--c2), 0.6);
     filter: brightness(1.4);
+    transform: scale(0.95);
 }
 
 .removalButton {
@@ -92,7 +94,7 @@
 
 .removalButton:hover {
     background-color: rgba(var(--c2), 0.6);
-    scale: 1.03;
+    scale: 1.05;
 }
 
 .removalButton:active {
@@ -120,12 +122,12 @@
 
 .addHeaderButton:hover {
     background-color: rgba(var(--c2), 0.4);
-    scale: 1.05;
+    transform: scale(1.05);
 }
 
 .addHeaderButton:active {
     background-color: rgba(var(--c2), 0.6);
-    scale: 0.95;
+    transform: scale(0.95);
 }
 
 .sectionBigHeader {

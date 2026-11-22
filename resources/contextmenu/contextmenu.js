@@ -9,6 +9,8 @@ class ContextMenu {
     }
 
     async build() {
+        window.contextMenuActive = true
+
         try {
             let validTypes =
                 [
@@ -17,7 +19,8 @@ class ContextMenu {
                     'name',
                     'color',
                     'block',
-                    'selectors'
+                    'selectors',
+                    'textarea'
                 ]
 
             this.menuItems.forEach(element => {
@@ -299,7 +302,28 @@ class ContextMenu {
                             })
 
                             contextMenu.appendChild(document.createElement('hr'))
+                            break;
                         }
+                    case 'textarea':
+                    {
+                        let data = this.itemValues[index]
+
+                        contextMenuH.style.width = "65vw"
+
+                        let textArea = document.createElement('div')
+                        textArea.contentEditable = true
+                        contextMenu.appendChild(textArea)
+
+                        textArea.classList.add('contextTextArea')
+
+                        textArea.innerHTML = this.itemValues[index]
+
+                        setTimeout(() => { textArea.focus() }, 301)
+
+                        textArea.addEventListener('input', (event) => {
+                            this.data[index] = event.target.innerHTML
+                        })
+                    }
                 }
             })
 
@@ -340,6 +364,7 @@ class ContextMenu {
                 this.data[this.data.length - 1] = true
             })
             contextMenuH.appendChild(submitButton)
+            if(this.menuItems[0] == 'textarea') submitButton.remove()
 
             await wait(300)
             contextMenuH.classList.remove('small')

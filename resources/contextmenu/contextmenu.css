@@ -144,3 +144,26 @@
 .checkboxClass > input:after {
     transform: scale(0);
 }
+
+.contextTextArea {
+    width: 100%;
+    height: 80vh;
+    resize: none;
+    border: none;
+    border-radius: 5px;
+    font-size: clamp(10px, 2.5vmin, 24px);
+    background-color: rgba(var(--c3));
+    color: rgb(var(--c1));
+    margin: 1%;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.contextTextArea:focus {
+    outline: none;
+    border: 4px solid rgb(var(--c2));
+}
