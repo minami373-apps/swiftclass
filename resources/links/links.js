@@ -582,4 +582,14 @@ function linksGen(...args) {
 
         }
     }
+
+    document.querySelectorAll('.commonLinkClickable,.linksHeader, .addHeaderButton').forEach(async (element) => {
+        element.style.opacity = '0'
+    })
+
+    document.querySelectorAll('.commonLinkClickable,.linksHeader, .addHeaderButton').forEach(async (element, index) => {
+        setTimeout(() => {
+            element.style.opacity = '1'
+        }, 100 * index + 1)
+    })
 }

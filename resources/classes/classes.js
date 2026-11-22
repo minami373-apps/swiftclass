@@ -197,7 +197,8 @@ async function classGen(custom){
                         c.classList.remove('cleanTransition')
                     })
 
-                    event.currentTarget.classList.add('smallProp')
+                    document.getElementById('notesBase').style.opacity = '0'
+                    returnButton.style.opacity = '0'
 
                     await wait(300)
 
@@ -205,9 +206,15 @@ async function classGen(custom){
                     document.getElementById('notesBase').remove()
                 })
 
-                if(document.getElementsByClassName('returnButton').length == 0) baseContent.appendChild(returnButton)
+                if(document.getElementsByClassName('returnButton').length == 0){
+                    returnButton.style.opacity = '0'
+                    baseContent.appendChild(returnButton)
+                    setTimeout(() => {
+                        requestAnimationFrame(() => {returnButton.style.opacity = '1'})
+                    }, 300)
+                }
 
-            }, 1000)
+            }, 400)
 
             generateNotes(i)
 
@@ -270,6 +277,18 @@ async function classGen(custom){
 }catch(e){
     alert('abc')
 }
+
+
+document.querySelectorAll('.classPane').forEach(async (element) => {
+    element.style.opacity = '0'
+})
+
+document.querySelectorAll('.classPane').forEach(async (element, index) => {
+    setTimeout(() => {
+        element.style.opacity = '1'
+    }, 100 * index + 1)
+})
+
 }
 
 async function generateNotes(period){
@@ -387,8 +406,14 @@ async function generateNotes(period){
             baseButton.addEventListener('click', async (event) => {
                 event.stopPropagation()
 
+                collectiveObject = JSON.parse(localStorage.getItem('swcNotes'))
+
                 let menu = new ContextMenu(["textarea"], element.name, [element.content], '')
                 menu.build()
+
+                let stupidBlocker = document.createElement('div')
+                stupidBlocker.classList.add('notesDenial')
+                document.body.appendChild(stupidBlocker)
 
                 document.addEventListener('click', closeMenuOnMouse)
                 document.addEventListener('keydown', closeMenuOnEsc)
@@ -398,11 +423,13 @@ async function generateNotes(period){
                     await wait(30)
 
                     collectiveObject[period][index].content = menu.data[0]
-                    localStorage.setItem('swcNotes', JSON.stringify(collectiveObject))
+                    if(menu.data[0] !== null) localStorage.setItem('swcNotes', JSON.stringify(collectiveObject))
                 }
 
                 document.removeEventListener('click', closeMenuOnMouse)
                 document.removeEventListener('keydown', closeMenuOnEsc)
+                stupidBlocker.remove()
+                updateMenus({relatedMenu: "Notes", period: period})
             })
 
         })
@@ -436,4 +463,8 @@ async function generateNotes(period){
 
     })
     notesBase.appendChild(addNoteButton)
+
+    notesBase.style.opacity = '0'
+
+    setTimeout(() => { notesBase.style.opacity = '1' }, 300)
 }

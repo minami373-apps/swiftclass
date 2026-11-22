@@ -1,6 +1,10 @@
 window.currentMenu = 'SwiftClass'
 window.contextMenuActive = false
 
+window.swiftClassVersion = "0.8.2f"
+
+document.getElementById("branding1").textContent += " " + window.swiftClassVersion
+
 if(localStorage.getItem('swcsettings') == null) localStorage.setItem('swcsettings',
     '[]'
 )
@@ -408,3 +412,13 @@ setInterval(() => {
 }, 100);
 
 updateMenus()
+
+document.querySelectorAll('.footerAnim').forEach(async (element) => {
+    element.style.opacity = '0'
+})
+
+document.querySelectorAll('.footerAnim').forEach(async (element, index) => {
+    setTimeout(() => {
+        element.style.opacity = '1'
+    }, 100 * index + 1)
+})

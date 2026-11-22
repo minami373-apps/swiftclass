@@ -310,6 +310,38 @@ class ContextMenu {
 
                         contextMenuH.style.width = "65vw"
 
+                        let formattingToolbar = document.createElement('div')
+                        formattingToolbar.classList.add('formattingToolbar')
+                        contextMenu.appendChild(formattingToolbar)
+
+                        let buttonTypes = [
+                            "bold",
+                            "italic",
+                            "underline",
+                        ]
+
+                        buttonTypes.forEach(type => {
+                            let formatButton = document.createElement('div')
+                            formatButton.classList.add('formatButton')
+                            formatButton.innerHTML = `<i class="fa-solid fa-` + type + `"></i>`
+
+                            formatButton.id = type
+
+                            formatButton.addEventListener('click', (event) => {
+                                if(event.currentTarget.classList.contains('active')) {
+                                    event.currentTarget.classList.remove('active')
+                                }
+                                else{
+                                    event.currentTarget.classList.add('active')
+                                }
+
+                                document.execCommand(type)
+                                textArea.hover()
+                            })
+
+                            formattingToolbar.appendChild(formatButton)
+                        })
+
                         let textArea = document.createElement('div')
                         textArea.contentEditable = true
                         contextMenu.appendChild(textArea)
@@ -323,6 +355,35 @@ class ContextMenu {
                         textArea.addEventListener('input', (event) => {
                             this.data[index] = event.target.innerHTML
                         })
+
+                        let formattingLoop = setInterval(() => {
+                            if(!window.contextMenuActive) clearInterval(formattingLoop)
+
+                            let types = ['bold', 'italic', 'underline']
+
+                            types.forEach(type => {
+                                if(document.queryCommandState(type)){
+
+                                    if(!document.getElementById(type).classList.contains('active')) {
+
+                                        document.getElementById(type).classList.add('active')
+
+                                    }
+
+                                }else{
+
+                                    if(document.getElementById(type).classList.contains('active')){
+
+                                        document.getElementById(type).classList.remove('active')
+
+                                    }
+
+                                }
+                            })
+
+                            console.log('alksjdoqw')
+                        }, 100)
+
                     }
                 }
             })

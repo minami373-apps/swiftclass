@@ -578,6 +578,16 @@ async function settingsGen(){
     document.getElementById('baseContent').appendChild(reloadButton)
     document.getElementById('baseContent').style.overflowY = 'auto'
 
+    document.querySelectorAll('.settingsHeader').forEach(async (element) => {
+        element.style.opacity = '0'
+    })
+
+    document.querySelectorAll('.settingsHeader').forEach(async (element, index) => {
+        setTimeout(() => {
+            element.style.opacity = '1'
+        }, 100 * index + 1)
+    })
+
 }
 
 async function generateImportExport() {
