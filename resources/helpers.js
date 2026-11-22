@@ -74,7 +74,7 @@ async function closeMenuOnMouse(event){
 function showInfoSlides() {
     console.log(window.currentMenu)
     let sourcename = window.currentMenu
-    if(window.curentMenu.includes("Settings")){
+    if(window.currentMenu.includes("Settings")){
         sourcename = "Settings"
     }
     let infoSlides = new InfoSlides("resources/info/json/" + sourcename + "/slides.json")
