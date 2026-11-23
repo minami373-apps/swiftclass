@@ -310,6 +310,7 @@ async function updateMenus(...args) {
     }
 
     if(baseContent.classList.contains('linksGrid')) baseContent.classList.remove('linksGrid')
+    if(baseContent.classList.contains('agendasGrid')) baseContent.classList.remove('agendasGrid')
 
     console.log("Updating menus ", window.currentMenu)
     baseContent.style.overflowY = 'none'
@@ -326,6 +327,9 @@ async function updateMenus(...args) {
                 break;
             case 'Links':
                 linksGen()
+                break;
+            case 'Agendas':
+                agendasGen()
                 break;
         }
     }
@@ -407,6 +411,9 @@ setInterval(() => {
     let completeTime = `${hrs}:${mins}:${secs} ${type}`
 
     document.getElementById('timeTicker').textContent = completeTime
+    if(window.currentMenu == 'Agendas'){
+        document.getElementById('timeHeader').textContent = "It's currently "  + completeTime + "."
+    }
 
     // document.title = 'SwiftClass - ' + completeTime
 }, 100);
