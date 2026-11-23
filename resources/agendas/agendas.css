@@ -15,13 +15,77 @@
 
 .timeSect {
     background-color: rgba(var(--c3), 0.2);
-    width: 100%;
+    width: 65%;
     height: 85%;
+    padding-left: 0.5%;
     border-radius: 5px;
-    padding: 0px 0.5% 0px 0.5%;
+    display: flex;
+    align-items: center;
 }
 
 .plannerSect {
     background-color: rgba(var(--c3), 0.2);
     border-radius: 5px;
+    display: grid;
+    grid-template-columns: 2fr 0.2fr;
+}
+
+.fitCt {
+    height: fit-content;
+    width: fit-content;
+}
+
+.agendasOverview {
+    margin-left: auto;
+    width: fit-content;
+    height: 100%;
+    text-align: right;
+    padding: 1%;
+}
+
+.agendasOverview > div {
+    font-size: clamp(15px, 0.9vw, 41236px);
+}
+
+.rightSect {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addItemButton {
+    font-size: clamp(12px, 1vw, 19px);
+    width: 90%;
+    height: 45%;
+    white-space: nowrap;
+    background-color: rgb(var(--c3));
+    color: rgb(var(--c1));
+    padding: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.25s ease;
+    min-width: fit-content;
+}
+
+.addItemButton:hover {
+    background-color: rgb(var(--c2));
+    transform: scale(1.05);
+}
+
+.addItemButton:active {
+    background-color: rgb(var(--c2));
+    transform: scale(0.95);
+}
+
+.leftSect {
+    background-color: rgba(var(--c3), 0.2);
+    width: 99.5%;
+    height: 98%;
+    border-radius: 5px;
+    align-self: center;
+    justify-self: end;
 }

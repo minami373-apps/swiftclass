@@ -412,7 +412,8 @@ setInterval(() => {
 
     document.getElementById('timeTicker').textContent = completeTime
     if(window.currentMenu == 'Agendas'){
-        document.getElementById('timeHeader').textContent = "It's currently "  + completeTime + "."
+        try {document.getElementById('timeHeader').textContent = "It's currently "  + completeTime + "."}
+        catch(e) {console.warn("Time ticker err: " + e)}
     }
 
     // document.title = 'SwiftClass - ' + completeTime
