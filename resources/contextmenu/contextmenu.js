@@ -20,7 +20,9 @@ class ContextMenu {
                     'color',
                     'block',
                     'selectors',
-                    'textarea'
+                    'textarea',
+                    'eventType',
+                    'subjectOfChoice'
                 ]
 
             this.menuItems.forEach(element => {
@@ -383,6 +385,32 @@ class ContextMenu {
 
                             console.log('alksjdoqw')
                         }, 100)
+                        break;
+                    }
+                    case 'eventType':
+                    {
+                        let label = document.createElement('span')
+                        label.classList.add('contextTip')
+
+                        label.textContent = "Is this a task (has a deadline) or an event (no deadline)?:"
+
+                        contextMenu.appendChild(label)
+
+                        let dropdown = document.createElement('select')
+                        dropdown.classList.add('contextDropdown');
+                        dropdown.id = 'eventSelect';
+
+                        ["Task", "Event"].forEach(type => {
+
+                            let opt = document.createElement('option')
+                            opt.value = type
+                            opt.textContent = type
+
+                            dropdown.appendChild(opt)
+
+                        })
+
+                        contextMenu.appendChild(dropdown)
 
                     }
                 }

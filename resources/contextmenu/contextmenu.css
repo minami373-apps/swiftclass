@@ -232,3 +232,18 @@
     top: 0;
     left: 0;
 }
+
+.contextDropdown {
+    border: 2px solid rgba(var(--c2), 0.96);
+    background-color: rgba(var(--c3), 0.96);
+    color: rgb(var(--c1));
+    width: fit-content;
+    padding: 1%;
+    margin-bottom: 1%;
+    font-size: clamp(10px, 2.5vmin, 24px);
+    cursor: pointer;
+}
+
+.contextDropdown:hover {
+    background-color: rgb(var(--c2));
+}

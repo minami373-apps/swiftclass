@@ -81,6 +81,11 @@
     transform: scale(0.95);
 }
 
+.leftAligner {
+    display: grid;
+    grid-template-rows: 0.2fr 2fr;
+}
+
 .leftSect {
     background-color: rgba(var(--c3), 0.2);
     width: 99.5%;
@@ -88,4 +93,49 @@
     border-radius: 5px;
     align-self: center;
     justify-self: end;
+}
+
+.agendasControlBar {
+    background-color: rgba(var(--c3), 0.2);
+    width: 99.5%;
+    height: 80%;
+    justify-self: end;
+    align-self: center;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.5%;
+    flex-wrap: nowrap;
+}
+
+.agendasControlBarText {
+    content: "Select a time range:";
+    font-size: clamp(12px, 1.2vw, 46px);
+    color: rgb(var(--c3));
+}
+
+.agendasControlButton {
+    font-size: clamp(12px, 1.2vw, 46px);
+    display: inline-flex;
+    background-color: rgb(var(--c3));
+    color: rgb(var(--c1));
+    padding: 0.25% 1% 0.25% 1%;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5%;
+    border-radius: 5px;
+    transition: 0.25s ease;
+    cursor: pointer;
+}
+
+.agendasControlButton:hover {
+    background-color: rgb(var(--c2));
+    transform: scale(1.05);
+}
+
+.agendasControlButton:active {
+    background-color: rgb(var(--c2));
+    transform: scale(0.95);
 }

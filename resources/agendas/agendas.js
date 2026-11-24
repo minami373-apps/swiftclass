@@ -39,8 +39,17 @@ async function agendasGen(){
 
     // Basic planner stuff that i'll procrastinate on
 
+    let leftAligner = document.createElement('div')
+    leftAligner.classList.add('leftAligner')
+    contentsLine.appendChild(leftAligner)
+
+    let controlBar = document.createElement('div')
+    controlBar.classList.add('agendasControlBar')
+    controlBar.id = 'controlBar'
+    leftAligner.appendChild(controlBar)
+
     let leftSect = document.createElement('div')
-    contentsLine.appendChild(leftSect)
+    leftAligner.appendChild(leftSect)
 
     leftSect.classList.add('leftSect')
 
@@ -53,8 +62,26 @@ async function agendasGen(){
     addItemButton.id = 'addItemButton'
     addItemButton.innerHTML = `<div style="text-align: center" " "><span style="font-size: clamp(2px, 5vw, 123px)">+</span><br><span>Add Task or Event</span></div>`
 
-    rightSect.appendChild(addItemButton)
+    addItemButton.addEventListener('click', () => {
+        getResultsFromContextMenu([""], "Create new Task or Event", [""])
+    })
 
+    let label = document.createElement('div')
+    label.classList.add('agendasControlBarText')
+    label.textContent = "Select a time range: "
+    controlBar.appendChild(label)
 
+    rightSect.appendChild(addItemButton);
 
+  ["1 day", "1 week", "2 weeks", "1 month", "6 months"].forEach(type => {
+        let clickable = document.createElement('div')
+        clickable.classList.add('agendasControlButton')
+
+        clickable.id = 'clickable-' + type
+
+        clickable.textContent = type
+
+        controlBar.appendChild(clickable)
+
+    })
 }

@@ -229,7 +229,8 @@
     width: fit-content;
     overflow: hidden;
     display: grid;
-    grid-template-rows: auto 0.2fr;
+    grid-template-rows: 1fr auto;
+    padding-top: 0.5%;
 }
 
 .commonLinkClickable::before, .commonLinkClickable::after {
