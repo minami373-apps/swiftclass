@@ -60,7 +60,7 @@ async function agendasGen(){
     let addItemButton = document.createElement('div')
     addItemButton.classList.add('addItemButton')
     addItemButton.id = 'addItemButton'
-    addItemButton.innerHTML = `<div style="text-align: center" " "><span style="font-size: clamp(2px, 5vw, 123px)">+</span><br><span>Add Task or Event</span></div>`
+    addItemButton.innerHTML = `<div style="text-align: center" " "><span style="font-size: clamp(2px, 5vw, 123px)">+</span><br><span>Add Task /<br>Event</span></div>`
 
     addItemButton.addEventListener('click', () => {
         getResultsFromContextMenu([""], "Create new Task or Event", [""])
