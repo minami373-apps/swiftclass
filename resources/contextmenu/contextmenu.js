@@ -22,7 +22,9 @@ class ContextMenu {
                     'selectors',
                     'textarea',
                     'eventType',
-                    'subjectOfChoice'
+                    'subjectOfChoice',
+                    'date',
+                    'time'
                 ]
 
             this.menuItems.forEach(element => {
@@ -385,6 +387,9 @@ class ContextMenu {
 
                             console.log('alksjdoqw')
                         }, 100)
+
+                        contextMenu.appendChild(document.createElement('hr'))
+
                         break;
                     }
                     case 'eventType':
@@ -395,6 +400,8 @@ class ContextMenu {
                         label.textContent = "Is this a task (has a deadline) or an event (no deadline)?:"
 
                         contextMenu.appendChild(label)
+
+                        contextMenu.appendChild(document.createElement('br'))
 
                         let dropdown = document.createElement('select')
                         dropdown.classList.add('contextDropdown');
@@ -410,8 +417,124 @@ class ContextMenu {
 
                         })
 
+                        this.data[index] = e.value
+
+                        if(this.itemValues[index] != "") dropdown.value = this.itemValues[index]
+
                         contextMenu.appendChild(dropdown)
 
+                        contextMenu.appendChild(document.createElement('hr'))
+
+                        dropdown.addEventListener('change', (event) => {
+
+                            this.data[index] = event.target.value
+
+                        })
+
+                        break;
+                    }
+                    case "subjectOfChoice":
+                    {
+
+                        let options = []
+
+                        JSON.parse(localStorage.getItem('swcClasses')).forEach((value, index) => {
+                            if(Number(extractSetting("Number of Available Periods")) > index) options.push(value.name)
+                        })
+
+                        options.push('General Purpose')
+
+                        // ------------------------ //
+
+                        let label = document.createElement('span')
+                        label.classList.add('contextTip')
+
+                        label.textContent = "What subject does this event apply to?:"
+
+                        contextMenu.appendChild(label)
+
+                        contextMenu.appendChild(document.createElement('br'))
+
+                        let dropdown = document.createElement('select')
+                        dropdown.classList.add('contextDropdown');
+                        dropdown.id = 'eventSelect';
+
+                        options.forEach(type => {
+
+                            let opt = document.createElement('option')
+                            opt.value = type
+                            opt.textContent = type
+
+                            dropdown.appendChild(opt)
+
+                        })
+
+                        if(this.itemValues[index] != "") dropdown.value = this.itemValues[index]
+
+                        dropdown.addEventListener('change', (event) => {
+
+                            this.data[index] = event.target.value
+
+                        })
+
+                        contextMenu.appendChild(dropdown)
+
+                        contextMenu.appendChild(document.createElement('hr'))
+
+                        this.data[index] = e.value
+
+                        break;
+                    }
+                    case 'date':
+                    {
+
+                        e.type = 'date'
+                        l.classList.add('contextTip')
+
+                        l.textContent = "What date does this apply to?:"
+
+                        if(this.itemValues[index] == "") e.value = "2027-01-01"
+
+                        this.data[index] = e.value
+
+                        contextMenu.appendChild(l)
+
+                        contextMenu.appendChild(document.createElement('br'))
+
+                        contextMenu.appendChild(e)
+
+                        contextMenu.appendChild(document.createElement('hr'))
+
+                        e.addEventListener('change', (event) => {
+                            this.data[index] = event.target.value
+                        })
+
+                        break;
+                    }
+                    case 'time':
+                    {
+                        e.type = 'time'
+                        l.classList.add('contextTip')
+
+                        l.textContent = "What time of day does this apply to?:"
+
+                        if(this.itemValues[index] == "") e.value = "23:59"
+
+                        this.data[index] = e.value
+
+                        contextMenu.appendChild(l)
+
+                        contextMenu.appendChild(document.createElement('br'))
+
+                        contextMenu.appendChild(e)
+
+                        contextMenu.appendChild(document.createElement('hr'))
+
+                        e.addEventListener('change', (event) => {
+                            this.data[index] = event.target.value
+                        })
+
+                        break;
                     }
                 }
             })

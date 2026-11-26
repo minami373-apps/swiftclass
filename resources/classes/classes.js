@@ -78,6 +78,8 @@ async function classGen(custom){
                     'Class Creator',
                     ['', '', '', '#FFFFFF'])
                 newClass.then((newClass) => {
+                    if(newClass[0] == "General Purpose") alert("You can name your classes a lot of things. This is the one thing you can't."); return;
+
                     let jsonRead = localStorage.getItem('swcClasses')
                     console.log(window.classToAdd)
                     jsonRead = JSON.parse(jsonRead)
@@ -239,6 +241,8 @@ async function classGen(custom){
                         c.link,
                         c.color
                     ]).then((newClass) => {
+                    if(newClass[0] == "General Purpose") alert("You can name your classes a lot of things. This is the one thing you can't."); return;
+
                         let jsonRead = JSON.parse(localStorage.getItem('swcClasses'))
 
                         jsonRead[i] = {

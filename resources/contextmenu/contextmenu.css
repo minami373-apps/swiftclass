@@ -119,6 +119,7 @@
     text-align: center;
     /*background-color: rgba(96, 101, 237, 0.195);*/
     border-radius: 2px;
+    margin-left: 0px;
 }
 
 .contextColorSector {
@@ -242,8 +243,29 @@
     margin-bottom: 1%;
     font-size: clamp(10px, 2.5vmin, 24px);
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .contextDropdown:hover {
     background-color: rgb(var(--c2));
+}
+
+.contextDropdown > option {
+    color: rgb(var(--c1));
+    background-color: rgb(var(--c3));
+}
+
+.contextDropdown > option:hover {
+    background-color: rgb(var(--c2));
+    color: rgb(var(--c1));
+}
+
+.contextMenuForm > hr {
+    color: rgb(var(--c3));
+    background-color: rgb(var(--c3));
+    border: 1px solid rgba(var(--c3));
+}
+
+.contextMenuForm > input[type=date] {
+    margin-bottom: 1%;
 }

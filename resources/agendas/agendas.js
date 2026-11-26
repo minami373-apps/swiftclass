@@ -60,11 +60,24 @@ async function agendasGen(){
     let addItemButton = document.createElement('div')
     addItemButton.classList.add('addItemButton')
     addItemButton.id = 'addItemButton'
+    addItemButton.classList.add('contextMenuOpen')
     addItemButton.innerHTML = `<div style="text-align: center" " "><span style="font-size: clamp(2px, 5vw, 123px)">+</span><br><span>Add Task /<br>Event</span></div>`
 
     addItemButton.addEventListener('click', () => {
-        getResultsFromContextMenu([""], "Create new Task or Event", [""])
+        getResultsFromContextMenu(["name", "eventType", "subjectOfChoice", 'date', 'time'], "Create new Task or Event", ["", "", "", "", ""]).then(
+            (data) => {
+
+                if(data[2] !== "General Purpose"){
+                    JSON.parse(localStorage.getItem('swcClasses')).forEach((item, index) => {
+                        if(item.name = data[2])
+                    })
+                }
+
+            }
+        )
     })
+
+    addItemButton.querySelectorAll("*").forEach((element) => {element.classList.add('contextMenuOpen')})
 
     let label = document.createElement('div')
     label.classList.add('agendasControlBarText')
@@ -73,7 +86,7 @@ async function agendasGen(){
 
     rightSect.appendChild(addItemButton);
 
-  ["1 day", "1 week", "2 weeks", "1 month", "6 months"].forEach(type => {
+  ["1 Day", "1 Week", "2 Weeks", "1 Month", "6 Months", "All Time"].forEach(type => {
         let clickable = document.createElement('div')
         clickable.classList.add('agendasControlButton')
 
@@ -84,4 +97,27 @@ async function agendasGen(){
         controlBar.appendChild(clickable)
 
     })
+
+    // Are we excited? LKJASLDIOQWDJQWDAJSOLIDJQWIO AGENDAS OIJQAWOIDQJDJQOIDQWJ YEAHHHHHHHHHHH IOQWJDQWIOQDJQWIODI D WOOO
+
+    if(localStorage.getItem('swcAgendas') == null) {
+        localStorage.setItem('swcAgendas', JSON.stringify([
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [], // classes ^
+            [] // general purpose
+        ]))
+    }
+
+
+
 }
